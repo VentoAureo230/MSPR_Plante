@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -28,6 +30,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $experience = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Achievement::class)]
+    private Collection $get_achievements;
+
+    public function __construct()
+    {
+        $this->get_achievements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -97,5 +116,71 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getExperience(): ?int
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?int $experience): self
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Achievement>
+     */
+    public function getGetAchievements(): Collection
+    {
+        return $this->get_achievements;
+    }
+
+    public function addGetAchievement(Achievement $getAchievement): self
+    {
+        if (!$this->get_achievements->contains($getAchievement)) {
+            $this->get_achievements->add($getAchievement);
+            $getAchievement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGetAchievement(Achievement $getAchievement): self
+    {
+        if ($this->get_achievements->removeElement($getAchievement)) {
+            // set the owning side to null (unless already changed)
+            if ($getAchievement->getUser() === $this) {
+                $getAchievement->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
