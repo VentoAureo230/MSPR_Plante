@@ -3,86 +3,82 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $firstname = null;
+    #[ORM\Column]
+    private array $roles = [];
 
-    #[ORM\Column(length: 255)]
-    private ?string $mail = null;
-
-    #[ORM\Column(length: 255)]
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
     private ?string $password = null;
-
-    #[ORM\Column]
-    private ?int $experience = null;
-
-    #[ORM\Column]
-    private ?bool $is_admin = null;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Achievement::class)]
-    private Collection $get_achievements;
-
-    public function __construct()
-    {
-        $this->get_achievements = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getEmail(): ?string
     {
-        return $this->name;
+        return $this->email;
     }
 
-    public function setName(string $name): self
+    public function setEmail(string $email): self
     {
-        $this->name = $name;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getFirstname(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
     {
-        return $this->firstname;
+        return (string) $this->email;
     }
 
-    public function setFirstname(string $firstname): self
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        $this->firstname = $firstname;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function getMail(): ?string
-    {
-        return $this->mail;
-    }
-
-    public function setMail(string $mail): self
-    {
-        $this->mail = $mail;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -94,57 +90,12 @@ class User
         return $this;
     }
 
-    public function getExperience(): ?int
-    {
-        return $this->experience;
-    }
-
-    public function setExperience(int $experience): self
-    {
-        $this->experience = $experience;
-
-        return $this;
-    }
-
-    public function isIsAdmin(): ?bool
-    {
-        return $this->is_admin;
-    }
-
-    public function setIsAdmin(bool $is_admin): self
-    {
-        $this->is_admin = $is_admin;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, Achievement>
+     * @see UserInterface
      */
-    public function getGetAchievements(): Collection
+    public function eraseCredentials()
     {
-        return $this->get_achievements;
-    }
-
-    public function addGetAchievement(Achievement $getAchievement): self
-    {
-        if (!$this->get_achievements->contains($getAchievement)) {
-            $this->get_achievements->add($getAchievement);
-            $getAchievement->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGetAchievement(Achievement $getAchievement): self
-    {
-        if ($this->get_achievements->removeElement($getAchievement)) {
-            // set the owning side to null (unless already changed)
-            if ($getAchievement->getUser() === $this) {
-                $getAchievement->setUser(null);
-            }
-        }
-
-        return $this;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }
