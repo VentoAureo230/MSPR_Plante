@@ -56,7 +56,7 @@ class AppFixtures extends Fixture
             $answer->setTitle($faker->title());
             $answer->setText($faker->text());
             $answer->setLogo($faker->imageUrl(200, 400, 'plante', true));
-            $answer->setPlante($faker->);
+        
             
             $manager->persist($answer);
         };
