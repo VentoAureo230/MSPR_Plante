@@ -31,7 +31,7 @@ composer require symfony/runtime
 ```
 
 ```
-composer require webpack-encore
+composer require webpack-encore-bundle
 ```
 
 ```
