@@ -35,6 +35,14 @@ composer require webpack-encore
 ```
 
 ```
+composer require symfony/ux-twig-component
+```
+
+```
+composer require symfony/ux-live-component
+```
+
+```
 npm install --force
 ```
 
