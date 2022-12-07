@@ -27,9 +27,10 @@ class AppFixtures extends Fixture
             $plante->setIsEnable($faker->boolean());
             $manager->persist($plante);
             
+            // Managing photo storage
             foreach ($results as $value) {
                 $pict = new Picture();
-                $pict->setFileName($value['photos']);
+                $pict->setFileName($value("photos"));
                 $pict->setPlant($plante);
                 $manager->persist($pict);
             }
@@ -48,7 +49,12 @@ class AppFixtures extends Fixture
             foreach ($after as $value) {
                 $answer =  new Answer();
                 $answer->setText($value['text']);
-                $answer->setTitle($value['title']);
+                if (isset($value['title'])) {
+                    $answer->setTitle($value['title']);
+                }
+                if (isset($value['logo'])) {
+                    $answer->setLogo($value['logo']);
+                }
                 $answer->setPlante($plante);
                 $manager->persist($answer);
             }
