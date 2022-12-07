@@ -7,7 +7,7 @@ use App\Repository\PlantRepository;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent('plant')]
-class PlantComponents
+class PlantComponent
 {
     public int $id;
 
