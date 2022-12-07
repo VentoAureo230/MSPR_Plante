@@ -18,8 +18,8 @@
         "text": "Il en existe 3 espèces en France et plus de 200 dans le monde!"
       },
       {
-        "title": "Savais-tu que le plantain pouvait se manger ? ",
-        "text": "Dans des omelettes, des quiches,des salades ou en pesto..."
+        "text": "Dans des omelettes, des quiches,des salades ou en pesto...",
+        "title": "Savais-tu que le plantain pouvait se manger ? "
       },
       {
         "logo": "mosquito.svg",
@@ -78,7 +78,7 @@
     "level": 1,
     "before": [
       {
-        "text": "Attentin, cette plante est plein d'épines, il est très facile de se griffer quand on la manipule"
+        "text": "Attention, cette plante est plein d'épines, il est très facile de se griffer quand on la manipule"
       }
     ],
     "photos": [
