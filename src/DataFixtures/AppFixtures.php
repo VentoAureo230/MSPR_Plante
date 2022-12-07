@@ -28,10 +28,13 @@ class AppFixtures extends Fixture
             $manager->persist($plante);
             
             // Managing photo storage
-            foreach ($results as $value) {
-                $pict = new Picture();
-                $pict->setFileName($value("photos"));
-                $pict->setPlant($plante);
+            $photo = $results['photos'];
+            foreach ($photo as $value) {
+                for ($i=0; $i < count($photo) ; $i++) { 
+                    $pict = new Picture();
+                    $pict->setFileName($photo[$i]);
+                    $pict->setPlant($plante);
+                }
                 $manager->persist($pict);
             }
             
