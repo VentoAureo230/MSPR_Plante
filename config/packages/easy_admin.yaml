@@ -1,0 +1,14 @@
+easy_admin:
+    entities:
+        Hint:
+            # ...
+            list:
+                fields:
+                    - { property: 'logo', template: 'hint.html.twig', base_path: '%app.path.easy_admin_views%'}
+            # ...
+           # show:
+              #  fields:
+                #    - { property: 'image', type: 'image' }
+            form: 
+                fields:
+                    - { property: 'logo', type: 'vich_file'}

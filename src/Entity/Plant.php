@@ -27,7 +27,7 @@ class Plant
     #[ORM\Column]
     private ?bool $is_enable = null;
 
-    #[ORM\OneToMany(mappedBy: 'plante', targetEntity: Hint::class, cascade: ["persist","remove"])]
+    #[ORM\OneToMany(mappedBy: 'plante', targetEntity: Hint::class, cascade: ["persist","remove"], orphanRemoval: true)]
     private Collection $hints;
 
     #[ORM\OneToMany(mappedBy: 'plante', targetEntity: Answer::class, cascade: ["persist","remove"])]

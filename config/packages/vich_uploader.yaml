@@ -1,0 +1,21 @@
+vich_uploader:
+    db_driver: orm
+    # ...
+    metadata:
+        type: attribute
+    mappings:
+        hint_logo:
+            uri_prefix:         '%app.path.hint_logo%'
+            upload_destination: '%kernel.project_dir%/public%app.path.hint_logo%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            #delete_on_update: false
+            #delete_on_remove: false
+   # mappings:
+    #    hint_logo:
+    #        uri_prefix:         '%app.path.hint_logo%'
+     #       uri_prefix: '%app.path.hint_logo%'
+      #      upload_destination: '%kernel.project_dir%/public%app.path.hint_logo%'
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'

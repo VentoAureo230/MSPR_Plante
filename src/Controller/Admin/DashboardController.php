@@ -2,14 +2,15 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Plant;
 use App\Entity\User;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use App\Entity\Plant;
+use App\Entity\Picture;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 
 class DashboardController extends AbstractDashboardController
@@ -57,6 +58,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute('Retour au site', 'fas fa-home', 'home');
         yield MenuItem::linkToCrud('Plantes', 'fas fa-map-marker-alt', Plant::class);
         yield MenuItem::linkToCrud('Administrateurs', 'fas fa-map-marker-alt', User::class);
+        yield MenuItem::linkToCrud('image ', 'fas fa-map-marker-alt',Picture::class);
         
     }
 }
