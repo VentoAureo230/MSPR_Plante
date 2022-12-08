@@ -2,28 +2,27 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Hint;
+use App\Entity\Answer;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class HintCrudController extends AbstractCrudController
+class AnswerCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Hint::class;
+        return Answer::class;
     }
 
-    
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('Text'),
+            TextField::new('title'),
+            TextField::new('text'),
             //TextField::new('logoFile')->setFormType(VichImageType::class),
-            ImageField::new('logo')->setBasePath('public\uploads\images\hint')->setUploadDir('public\uploads\images\hint')->setFormTypeOption('allow_delete', false),
+            ImageField::new('logo')->setBasePath('public\uploads\images\answer')->setUploadDir('public\uploads\images\answer')->setFormTypeOption('allow_delete', false),
             TextField::new('logoFile',':')->onlyOnForms()->setFormType(VichImageType::class)->setFormTypeOption('allow_delete', false)->setFormTypeOption('allow_file_upload', false)->setFormTypeOption('disabled','disabled')
         ];
     }
-    
 }

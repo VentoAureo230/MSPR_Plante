@@ -73,7 +73,7 @@ class Hint
 
     public function setLogoFile(File $image = null)
     {
-        $this->imageFile = $image;
+        $this->logoFile = $image;
     }
 
     public function getLogoFile()

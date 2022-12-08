@@ -22,7 +22,7 @@ class Plant
     private ?int $Level = null;
 
     #[ORM\Column]
-    private ?bool $is_enable_for_user = null;
+    private ?bool $is_enable_for_user = true;
 
     #[ORM\Column]
     private ?bool $is_enable = null;
@@ -30,10 +30,10 @@ class Plant
     #[ORM\OneToMany(mappedBy: 'plante', targetEntity: Hint::class, cascade: ["persist","remove"], orphanRemoval: true)]
     private Collection $hints;
 
-    #[ORM\OneToMany(mappedBy: 'plante', targetEntity: Answer::class, cascade: ["persist","remove"])]
+    #[ORM\OneToMany(mappedBy: 'plante', targetEntity: Answer::class, cascade: ["persist","remove"], orphanRemoval: true)]
     private Collection $answers;
 
-    #[ORM\OneToMany(mappedBy: 'plant', targetEntity: Picture::class, cascade: ["persist","remove"])]
+    #[ORM\OneToMany(mappedBy: 'plant', targetEntity: Picture::class, cascade: ["persist","remove"], orphanRemoval: true)]
     private Collection $pictures;
 
     #[ORM\OneToMany(mappedBy: 'plant', targetEntity: Achievement::class, cascade: ["persist","remove"])]
