@@ -5,7 +5,12 @@ namespace App\Entity;
 use App\Repository\AnswerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 #[ORM\Entity(repositoryClass: AnswerRepository::class)]
+#[Vich\Uploadable]
 class Answer
 {
     #[ORM\Id]
@@ -21,6 +26,9 @@ class Answer
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $logo = null;
+
+    #[Vich\UploadableField(mapping:"answer_logo", fileNameProperty:"logo")]
+    private ?File $logoFile = null;
 
     #[ORM\ManyToOne(inversedBy: 'answers')]
     #[ORM\JoinColumn(nullable: false)]
@@ -77,5 +85,15 @@ class Answer
         $this->plante = $plante;
 
         return $this;
+    }
+
+    public function setLogoFile(File $image = null)
+    {
+        $this->logoFile = $image;
+    }
+
+    public function getLogoFile()
+    {
+        return $this->logoFile;
     }
 }
