@@ -34,6 +34,8 @@ class UserCrudController extends AbstractCrudController
         return User::class;
     }    
 
+
+
     /*
     public function configureFilters(Filters $filters): Filters
     {
@@ -67,10 +69,11 @@ class UserCrudController extends AbstractCrudController
             TextField::new('name','Nom'),
             TextField::new('firstname','Prénom'),
             TextField::new('mail','Mail')->setFormType(EmailType::class),
-            TextField::new('password','Mot de passe')->setFormType(PasswordType::class)->onlyOnForms()->onlyWhenCreating(),
-            BooleanField::new('is_admin','Administrateur')->onlyOnForms(),
+            TextField::new('password','Mot de passe')->setFormType(PasswordType::class)->onlyOnForms()->onlyWhenCreating()
+            //BooleanField::new('is_admin','Administrateur')->onlyOnForms(),
             
         ];
     }
+    
     
 }
