@@ -22,21 +22,21 @@ class Plant
     private ?int $Level = null;
 
     #[ORM\Column]
-    private ?bool $is_enable_for_user = null;
+    private ?bool $is_enable_for_user = true;
 
     #[ORM\Column]
     private ?bool $is_enable = null;
 
-    #[ORM\OneToMany(mappedBy: 'plante', targetEntity: Hint::class)]
+    #[ORM\OneToMany(mappedBy: 'plante', targetEntity: Hint::class, cascade: ["persist","remove"], orphanRemoval: true)]
     private Collection $hints;
 
-    #[ORM\OneToMany(mappedBy: 'plante', targetEntity: Answer::class)]
+    #[ORM\OneToMany(mappedBy: 'plante', targetEntity: Answer::class, cascade: ["persist","remove"], orphanRemoval: true)]
     private Collection $answers;
 
-    #[ORM\OneToMany(mappedBy: 'plant', targetEntity: Picture::class)]
+    #[ORM\OneToMany(mappedBy: 'plant', targetEntity: Picture::class, cascade: ["persist","remove"], orphanRemoval: true)]
     private Collection $pictures;
 
-    #[ORM\OneToMany(mappedBy: 'plant', targetEntity: Achievement::class)]
+    #[ORM\OneToMany(mappedBy: 'plant', targetEntity: Achievement::class, cascade: ["persist","remove"], orphanRemoval: true)]
     private Collection $get_achievements;
 
     public function __construct()
@@ -45,6 +45,7 @@ class Plant
         $this->answers = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->get_achievements = new ArrayCollection();
+        $this->is_enable = True;
     }
 
     public function getId(): ?int
@@ -218,5 +219,10 @@ class Plant
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->getName();
     }
 }
