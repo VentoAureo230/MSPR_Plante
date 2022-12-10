@@ -2,27 +2,41 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
+
+    #[ORM\Column]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
 
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $mail = null;
+    private ?string $lastname = null;
+
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
@@ -30,8 +44,6 @@ class User
     #[ORM\Column]
     private ?int $experience = 0;
 
-    #[ORM\Column]
-    private ?bool $is_admin = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Achievement::class)]
     private Collection $get_achievements;
@@ -46,16 +58,70 @@ class User
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getEmail(): ?string
     {
-        return $this->name;
+        return $this->email;
     }
 
-    public function setName(string $name): self
+    public function setEmail(string $email): self
     {
-        $this->name = $name;
+        $this->email = $email;
 
         return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_ADMIN';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getFirstname(): ?string
@@ -70,26 +136,14 @@ class User
         return $this;
     }
 
-    public function getMail(): ?string
+    public function getLastname(): ?string
     {
-        return $this->mail;
+        return $this->lastname;
     }
 
-    public function setMail(string $mail): self
+    public function setLastname(string $lastname): self
     {
-        $this->mail = $mail;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
+        $this->lastname = $lastname;
 
         return $this;
     }
@@ -99,21 +153,9 @@ class User
         return $this->experience;
     }
 
-    public function setExperience(int $experience): self
+    public function setExperience(?int $experience): self
     {
         $this->experience = $experience;
-
-        return $this;
-    }
-
-    public function isIsAdmin(): ?bool
-    {
-        return $this->is_admin;
-    }
-
-    public function setIsAdmin(bool $is_admin): self
-    {
-        $this->is_admin = $is_admin;
 
         return $this;
     }
