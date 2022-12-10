@@ -37,13 +37,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
-
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
-
     #[ORM\Column]
     private ?int $experience = 0;
-
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Achievement::class)]
     private Collection $get_achievements;
@@ -86,9 +81,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-        $roles[] = 'ROLE_ADMIN';
 
         return array_unique($roles);
     }
