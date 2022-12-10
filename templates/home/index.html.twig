@@ -9,16 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-<a href="{{ path('app_logout') }}">Déconnexion</a>
-    <h1>Hello {{ controller_name }}! ✅</h1>
-   <h1>Home page </h1>
-    
-
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Anthony/Desktop/VSC/MSPR-Plante/MSPR_Plante/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Anthony/Desktop/VSC/MSPR-Plante/MSPR_Plante/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+    <a href="{{ path('app_user_page')}}" class="btn btn-success">Profil</a>
+    <a href="{{ path('app_logout') }}" class="btn btn-danger">Déconnexion</a>
 </div>
 {% endblock %}
