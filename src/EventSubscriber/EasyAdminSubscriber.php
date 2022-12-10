@@ -6,6 +6,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
+use PhpParser\Node\Expr\Cast\Array_;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -20,7 +21,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         $this->entityManager = $entityManager;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents():Array
     {
         return [
             BeforeEntityPersistedEvent::class => ['addUser'],
@@ -43,7 +44,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         $entity = $event->getEntityInstance();
 
         if ($entity instanceof User) {
-            $entity->setIsAdmin(true);
+            $entity->setRoles(array('ROLE_ADMIN'));
             //$this->setPassword($entity);
         }
     }

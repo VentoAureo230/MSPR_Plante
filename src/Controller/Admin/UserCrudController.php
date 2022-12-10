@@ -54,7 +54,8 @@ class UserCrudController extends AbstractCrudController
         return $response;*/
 
         $response = $this->entityRepository->createQueryBuilder($searchDto, $entityDto, $fields, $filters);
-        $response->andWhere('entity.is_admin = 1');
+        $response->andWhere("entity.roles LIKE '%ADMIN%' ");
+        //$response->andWhere('entity.is_admin = 1');
 
         return $response;
     }
@@ -66,10 +67,10 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('name','Nom'),
+            TextField::new('lastname','Nom'),
             TextField::new('firstname','Prénom'),
-            TextField::new('mail','Mail')->setFormType(EmailType::class),
-            TextField::new('password','Mot de passe')->setFormType(PasswordType::class)->onlyOnForms()->onlyWhenCreating()
+            TextField::new('email','Mail')->setFormType(EmailType::class),
+            TextField::new('password','Mot de passe')->setFormType(PasswordType::class)->onlyOnForms()->onlyWhenCreating(),
             //BooleanField::new('is_admin','Administrateur')->onlyOnForms(),
             
         ];
