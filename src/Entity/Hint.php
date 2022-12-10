@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\HintRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HintRepository;
+
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: HintRepository::class)]
+#[Vich\Uploadable]
 class Hint
 {
     #[ORM\Id]
@@ -18,6 +22,9 @@ class Hint
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $logo = null;
+
+    #[Vich\UploadableField(mapping:"hint_logo", fileNameProperty:"logo")]
+    private ?File $logoFile = null;
 
     #[ORM\ManyToOne(inversedBy: 'hints')]
     #[ORM\JoinColumn(nullable: false)]
@@ -62,5 +69,15 @@ class Hint
         $this->plante = $plante;
 
         return $this;
+    }
+
+    public function setLogoFile(File $image = null)
+    {
+        $this->logoFile = $image;
+    }
+
+    public function getLogoFile()
+    {
+        return $this->logoFile;
     }
 }

@@ -37,8 +37,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $experience = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
+
+    #[ORM\Column]
+    private ?int $experience = 0;
+
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Achievement::class)]
     private Collection $get_achievements;
