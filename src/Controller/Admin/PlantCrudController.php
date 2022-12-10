@@ -49,12 +49,12 @@ class PlantCrudController extends AbstractCrudController
             TextEditorField::new('description'),
         ];*/
 
-        yield TextField::new('name');
-        yield IntegerField::new('Level');
-        yield BooleanField::new('is_enable_for_user')->renderAsSwitch(true);
-        yield CollectionField::new('hints')->useEntryCrudForm();
-        yield CollectionField::new('answers')->useEntryCrudForm();
-        yield CollectionField::new('pictures')->useEntryCrudForm();
+        yield TextField::new('name','Nom de la plante :');
+        yield IntegerField::new('Level','Niveau :');
+        yield BooleanField::new('is_enable_for_user','Afficher pour les utilisateurs :')->renderAsSwitch(true);
+        yield CollectionField::new('hints','Indices :')->useEntryCrudForm()->renderExpanded()->setEntryIsComplex();
+        yield CollectionField::new('answers','Réponses :')->useEntryCrudForm()->renderExpanded()->setEntryIsComplex();
+        yield CollectionField::new('pictures','Photos :')->useEntryCrudForm()->renderExpanded()->setEntryIsComplex();
 
 
         /*

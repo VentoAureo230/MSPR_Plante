@@ -57,7 +57,7 @@ class DashboardController extends AbstractDashboardController
         
         yield MenuItem::linkToRoute('Retour au site', 'fas fa-home', 'home');
         yield MenuItem::linkToCrud('Plantes', 'fas fa-map-marker-alt', Plant::class);
-        yield MenuItem::linkToCrud('Administrateurs', 'fas fa-map-marker-alt', User::class);
+        yield MenuItem::linkToCrud('Administrateurs', 'fas fa-map-marker-alt', User::class)->setQueryParameter("is_admin",true);
         
     }
 }

@@ -36,7 +36,7 @@ class Plant
     #[ORM\OneToMany(mappedBy: 'plant', targetEntity: Picture::class, cascade: ["persist","remove"], orphanRemoval: true)]
     private Collection $pictures;
 
-    #[ORM\OneToMany(mappedBy: 'plant', targetEntity: Achievement::class, cascade: ["persist","remove"])]
+    #[ORM\OneToMany(mappedBy: 'plant', targetEntity: Achievement::class, cascade: ["persist","remove"], orphanRemoval: true)]
     private Collection $get_achievements;
 
     public function __construct()

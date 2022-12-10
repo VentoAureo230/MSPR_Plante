@@ -6,6 +6,7 @@ use App\Entity\Hint;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class HintCrudController extends AbstractCrudController
@@ -19,10 +20,9 @@ class HintCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('Text'),
-            //TextField::new('logoFile')->setFormType(VichImageType::class),
-            ImageField::new('logo')->setBasePath('public\uploads\images\hint')->setUploadDir('public\uploads\images\hint')->setFormTypeOption('allow_delete', false),
-            TextField::new('logoFile',':')->onlyOnForms()->setFormType(VichImageType::class)->setFormTypeOption('allow_delete', false)->setFormTypeOption('allow_file_upload', false)->setFormTypeOption('disabled','disabled')
+            TextareaField::new('Text','Description'),
+            ImageField::new('logo','Logo :')->setBasePath('public\uploads\images\hint')->setUploadDir('public\uploads\images\hint')->setFormTypeOption('allow_delete', false),
+            TextField::new('logoFile','Prévisualisation')->onlyOnForms()->setFormType(VichImageType::class)->setFormTypeOption('allow_delete', false)->setFormTypeOption('allow_file_upload', false)->setFormTypeOption('disabled','disabled')
         ];
     }
     
