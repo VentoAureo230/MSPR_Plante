@@ -16,6 +16,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 
 use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -54,6 +56,8 @@ class UserCrudController extends AbstractCrudController
 
         return $response;
     }
+
+    
     
 
     
@@ -62,9 +66,9 @@ class UserCrudController extends AbstractCrudController
         return [
             TextField::new('name','Nom'),
             TextField::new('firstname','Prénom'),
-            EmailField::new('mail','Mail'),
-            TextField::new('password','Mot de passe'),
-            BooleanField::new('is_admin','Administrateur'),
+            TextField::new('mail','Mail')->setFormType(EmailType::class),
+            TextField::new('password','Mot de passe')->setFormType(PasswordType::class)->onlyOnForms(),
+            BooleanField::new('is_admin','Administrateur')->onlyOnForms(),
             
         ];
     }

@@ -1,6 +1,8 @@
 easy_admin:
+    translation_domain: 'messages'
     entities:
         User:
+            label: menu.user
             class: App\Entity\User
             
             

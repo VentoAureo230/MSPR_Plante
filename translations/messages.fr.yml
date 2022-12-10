@@ -1,0 +1,16 @@
+action.save: Sauvegarder
+action.new: Créer
+action.add: Ajouter
+action.edit: Modifier
+action.delete: Supprimer
+
+paginator.counter: compteur
+paginator.first: prmier
+paginator.previous: précédent
+paginator.next: suivant
+paginator.last: dernier
+
+Plant: Plante
+User: Utilisateurs
+Pictures: Images
+Filters: Filtres
