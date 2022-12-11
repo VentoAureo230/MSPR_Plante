@@ -14,10 +14,15 @@ import './bootstrap';
 
 let plantPictureInput = document.getElementById('achievement_file_file');
 let plantPicture = document.getElementById('PlantPicture');
+plantPictureInput.setAttribute("accept","image/*");
+plantPictureInput.setAttribute("capture","camera");
+
+document.addEventListener("load",SetInputAchievement);
 
  
+ 
 
-document.onload = function SetInputAchievement(){
+ function SetInputAchievement(){
     plantPictureInput.setAttribute("accept","image/*");
     plantPictureInput.setAttribute("capture","camera");
 }

@@ -22,7 +22,7 @@ class Achievement
     private ?string $file_name = null;
 
     
-    #[Vich\UploadableField(mapping:"answer_logo", fileNameProperty:"file_name")]
+    #[Vich\UploadableField(mapping:"achievement_picture", fileNameProperty:"file_name")]
     private ?File $file = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

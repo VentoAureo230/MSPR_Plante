@@ -24,7 +24,10 @@ class UploadPhotoController extends AbstractController
     #[Route('/test', name: 'app_upload_photo')]
     public function index(UserRepository $repoUser, LevelCalculator $levelCalculator ,PlantRepository $repoPlant, AchievementRepository $repoAchievement, Request $request, SluggerInterface $slugger, ImageLocation $location): Response
     {
-        $user = $repoUser->findOneBy(['id' => 6]);
+        // TODO récupérer vrai utilisateur
+        //$user = $repoUser->findOneBy(['id' => 7]);
+        $user = $this->getUser();
+        $plant = null;
 
         $userLevel = $levelCalculator->getLevel($user->getExperience());
 
@@ -32,21 +35,61 @@ class UploadPhotoController extends AbstractController
         $criteria->where(Criteria::expr()->lte('Level', $userLevel));
 
         $listPlant = $repoPlant->matching($criteria);
+        $userId = $user->getId();
+        $listAchievement = $repoAchievement->findBy(['user' => $userId]);
+
+        /*
+        foreach ($listPlant as $PlantToRemove) {
+            foreach($listAchievement as $achievementAlreadyAchived){
+                if ($PlantToRemove->getId() == $achievementAlreadyAchived->getPlant()->getId()){
+                    
+                    $listPlant->removeElement($PlantToRemove);
+                }
+            }
+        }*/
 
         //$listPlant = $repoPlant->findBy(['Level' => $userLevel]);
 
-        $indexChosedPlant = rand(0, count($listPlant) - 1);
-        $plant = $listPlant[$indexChosedPlant];
+        
+        //$message = count($listPlant);
+        //echo "<script type='text/javascript'>alert('$message');</script>";
+
+        if ($plant == null){
+            $indexChosedPlant = rand(0, count($listPlant) - 1);
+            $plant = $listPlant[$indexChosedPlant];
+        }
+
+        
+
+        $message = $plant->getId();
+        echo "<script type='text/javascript'>alert('$message');</script>";
+
+        /*
+        if (count($listPlant) == 1){
+            $plant = $listPlant[0];
+        }else{
+            $indexChosedPlant = rand(0, count($listPlant) - 1);
+            $plant = $listPlant[$indexChosedPlant];
+        }*/
+
+        /*
+        $plant = null;
+
+        while ($plant == null){
+            $indexChosedPlant = rand(0, count($listPlant) - 1);
+            $plant = $listPlant[$indexChosedPlant];
+        }*/
+
+        
         
 
         $achievement = new Achievement();
         $form = $this->createForm(AchievementType::class, $achievement);
         $form->handleRequest($request);
 
-        if ($form->get('yes')->isClicked()){
+        if ($form->isSubmitted() && $form->isValid() ){
             $plantPicture =  $form->get('file')->getData();
             if ($plantPicture) {
-
                 $originaleFilename = pathinfo($plantPicture->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originaleFilename);
                 $newFileName = $safeFilename . '-' . uniqid() . '.' . $plantPicture->guessExtension();
@@ -68,12 +111,18 @@ class UploadPhotoController extends AbstractController
                 $achievement->setLongitude($imagepos['longitude']);
                 $achievement->setCreatedAt(new \DateTime());
                 $achievement->setPlant($plant);
+                $message = $plant->getId();
+        echo "<script type='text/javascript'>alert('$message');</script>";
                 $achievement->setUser($user);
+
+                $user->setExperience($user->getExperience() + 1);
+                $repoUser->save($user);
                 
                 $repoAchievement->save($achievement, true);
 
                 //$message = "wrong answer";
                 //echo "<script type='text/javascript'>alert('$message');</script>";
+                return $this->redirectToRoute("admin");
 
             }
         }
