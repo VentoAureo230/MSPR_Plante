@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\AchievementRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AchievementRepository;
+use Symfony\Component\HttpFoundation\File\File;
+
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: AchievementRepository::class)]
+#[Vich\Uploadable]
 class Achievement
 {
     #[ORM\Id]
@@ -16,6 +20,10 @@ class Achievement
 
     #[ORM\Column(length: 255)]
     private ?string $file_name = null;
+
+    
+    #[Vich\UploadableField(mapping:"answer_logo", fileNameProperty:"file_name")]
+    private ?File $file = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
@@ -107,6 +115,18 @@ class Achievement
     public function setPlant(?Plant $plant): self
     {
         $this->plant = $plant;
+
+        return $this;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile(?File $file): self
+    {
+        $this->$file = $file;
 
         return $this;
     }

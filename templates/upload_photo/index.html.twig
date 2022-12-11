@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UploadPhotoController!{% endblock %}
+
+{% block body %}
+
+
+<h1>Trouve ça mon gars :</h1>
+
+
+<h2>{{Plant.name}}</h2>
+<h3>Niveau : {{Plant.Level}}</h3>
+
+
+{% for hint in Plant.hints %}
+
+    {% if hint.logo != null %}
+        <img class="logo"  src="{{ ( asset( HintLogoPath ~ hint.logo)) }}">
+    {% endif %}
+
+    <p>{{ hint.text }}</p>
+
+{% endfor %}
+
+<p>Voici quelques photos :</p>
+
+{% for picture in Plant.pictures %}
+        <img class="Picture" src="{{ ( asset(PlantPicturePath ~ picture.file_name)) }}">
+{% endfor %}
+
+<p>Votre photo :</p>
+
+<img class="Picture" id="PlantPicture">
+{#
+<input type="file" id="achievement_file_file" name="achievement[file][file]" required="required" class="form-control" accept="image/*" capture="camera" multiple>
+#}
+
+<p>Est-ce la bonne Plante ? </p>
+
+{{ form_start(AchievementForm)}}
+    
+    {{ form_row(AchievementForm.file) }}
+    {{ form_row(AchievementForm.yes) }}
+    {{ form_row(AchievementForm.no) }}
+
+{{ form_end(AchievementForm)}}
+
+
+{% endblock %}

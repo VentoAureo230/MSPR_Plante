@@ -10,3 +10,21 @@ import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
+
+
+let plantPictureInput = document.getElementById('achievement_file_file');
+let plantPicture = document.getElementById('PlantPicture');
+
+ 
+
+document.onload = function SetInputAchievement(){
+    plantPictureInput.setAttribute("accept","image/*");
+    plantPictureInput.setAttribute("capture","camera");
+}
+
+plantPictureInput.onchange = evt => {
+    const [file] = plantPictureInput.files
+    if (file) {
+        plantPicture.src = URL.createObjectURL(file);
+    }
+  }

@@ -8,6 +8,7 @@ parameters:
     app.path.answer_logo: /uploads/images/answer
     app.path.plant_picture: /uploads/images/plant
     app.path.easy_admin_views: /Ressources/views/easy_admin
+    app.path.achievement_picture: /uploads/images/achievement
 
 services:
     # default configuration for services in *this* file
