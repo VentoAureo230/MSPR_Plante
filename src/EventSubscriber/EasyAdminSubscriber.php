@@ -45,6 +45,8 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 
         if ($entity instanceof User) {
             $entity->setRoles(array('ROLE_ADMIN'));
+
+            
             //$this->setPassword($entity);
         }
     }
