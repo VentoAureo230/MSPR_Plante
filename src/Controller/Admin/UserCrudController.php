@@ -6,15 +6,8 @@ use App\Entity\User;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
-
-
-
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-
-use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -55,7 +48,6 @@ class UserCrudController extends AbstractCrudController
 
         $response = $this->entityRepository->createQueryBuilder($searchDto, $entityDto, $fields, $filters);
         $response->andWhere("entity.roles LIKE '%ADMIN%' ");
-        //$response->andWhere('entity.is_admin = 1');
 
         return $response;
     }
@@ -71,8 +63,6 @@ class UserCrudController extends AbstractCrudController
             TextField::new('firstname','Prénom'),
             TextField::new('email','Mail')->setFormType(EmailType::class),
             TextField::new('password','Mot de passe')->setFormType(PasswordType::class)->onlyOnForms()->onlyWhenCreating(),
-            //BooleanField::new('is_admin','Administrateur')->onlyOnForms(),
-            
         ];
     }
     

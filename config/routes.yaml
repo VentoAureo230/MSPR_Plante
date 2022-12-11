@@ -5,3 +5,7 @@ controllers:
 live_component:
     resource: '@LiveComponentBundle/config/routes.php'
     prefix: /_components
+
+app_logout:
+    path: /logout
+    methods: GET
