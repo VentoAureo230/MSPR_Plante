@@ -56,6 +56,8 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login'); 
         }
 
+        // TODO Fix ce truc très chiant
+
         $form = $this->createForm(UserPasswordType::class, $this->getUser());
         
         $form->handleRequest($request);
