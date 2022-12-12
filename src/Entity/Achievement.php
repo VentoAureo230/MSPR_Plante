@@ -83,6 +83,18 @@ class Achievement
         return $this;
     }
 
+    public function getCreated_At(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreated_At(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
     public function getLongitude(): ?float
     {
         return $this->longitude;

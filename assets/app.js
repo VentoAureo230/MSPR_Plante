@@ -12,21 +12,27 @@ import './styles/app.css';
 import './bootstrap';
 
 
-let plantPictureInput = document.getElementById('achievement_file_file');
+let plantPictureInput = document.getElementById('achievement_file_name');
 let plantPicture = document.getElementById('PlantPicture');
 let hiddenInput = document.getElementById("achievement_plant");
 let hiddenLabel =  document.querySelector('[for="achievement_plant"]');
+let labelValidationPlante = document.getElementById("labelValidationPlante");
+
+
+
+
 
 
 hiddenLabel.style.visibility = "hidden";
 hiddenInput.style.visibility = "hidden";
 plantPictureInput.setAttribute("accept","image/*");
 plantPictureInput.setAttribute("capture","camera");
+labelValidationPlante.style.visibility = "hidden";
 
 
 document.addEventListener("load",SetInputAchievement);
 
- 
+  
  
 
  function SetInputAchievement(){
@@ -34,6 +40,9 @@ document.addEventListener("load",SetInputAchievement);
     hiddenInput.style.visibility = "hidden";
     plantPictureInput.setAttribute("accept","image/*");
     plantPictureInput.setAttribute("capture","camera");
+    labelValidationPlante.style.visibility = "hidden";
+
+
 
 }
  
@@ -41,5 +50,6 @@ plantPictureInput.onchange = evt => {
     const [file] = plantPictureInput.files
     if (file) {
         plantPicture.src = URL.createObjectURL(file);
+        labelValidationPlante.style.visibility = "visible";
     }
   }

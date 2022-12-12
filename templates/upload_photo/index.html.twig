@@ -28,14 +28,14 @@
         <img class="Picture" src="{{ ( asset(PlantPicturePath ~ picture.file_name)) }}">
 {% endfor %}
 
-<p>Votre photo :</p>
+<p></p>
 
 <img class="Picture" id="PlantPicture">
 {#
 <input type="file" id="achievement_file_file" name="achievement[file][file]" required="required" class="form-control" accept="image/*" capture="camera" multiple>
 #}
 
-<p>Est-ce la bonne Plante ? </p>
+<p id="labelValidationPlante">Est-ce la bonne Plante ? </p>
 
 {{ form_start(AchievementForm)}}
     

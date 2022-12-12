@@ -106,7 +106,7 @@ class UploadPhotoController extends AbstractController
 
                 //$message = "wrong answer";
                 //echo "<script type='text/javascript'>alert('$message');</script>";
-                return $this->redirectToRoute("game");
+                return $this->redirectToRoute("app_achievement");
 
             }
         }   

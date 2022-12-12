@@ -19,7 +19,8 @@ class AchievementType extends AbstractType
     {
         $builder
             ->add('file_name',FileType::class, [
-                'mapped' => false
+                'mapped' => false,
+                'label' => "Votre photo "
             ])
             ->add('yes', SubmitType::class, array(
                 'label' => 'Oui'))
