@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Achievement;
-use App\Service\RandomPlant;
 use App\Form\AchievementType;
 use App\Service\ImageLocation;
 use App\Service\LevelCalculator;
@@ -22,15 +20,13 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class UploadPhotoController extends AbstractController
 {
-    #[Route('/test', name: 'game')]
+    #[Route('/seek&find', name: 'game')]
     public function index(RequestStack $requestStack, UserRepository $repoUser, LevelCalculator $levelCalculator ,PlantRepository $repoPlant, AchievementRepository $repoAchievement, Request $request, SluggerInterface $slugger, ImageLocation $location): Response
     {
         $user = $this->getUser();
         $achievement = new Achievement();
 
         $session = $requestStack->getSession();
-
-        echo "<script>console.log('Debug Objects: " . $session->get("plante_id") . "' );</script>";
 
         if (! $request->isMethod('post'))
         {

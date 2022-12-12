@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserPasswordType;
+use App\Service\LevelCalculator;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,16 +17,14 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserController extends AbstractController
 {
     #[Route('/home/user', name: 'app_user_page')]
-    public function index()
+    public function index(LevelCalculator $levelCalculator)
     {
-        return $this->render('user/index.html.twig');
+        $userLevel = $levelCalculator->getLevel($user = $this->getUser()->getExperience());
+        return $this->render('user/index.html.twig', [
+            'level' => $userLevel
+        ]);
     }
 
-    #[Route('/user/collection', name: 'app_stats')]
-    public function collection(): Response
-    {
-        return $this->render('stats/index.html.twig');
-    }
 
     #[Route('/user/edit_profile', name: 'app_edit_user')]
     public function edit(Request $request, EntityManagerInterface $entityManager): Response
