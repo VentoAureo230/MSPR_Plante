@@ -37,8 +37,7 @@ class UploadPhotoController extends AbstractController
         if (! $request->isMethod('post'))
         {
             $userLevel = $levelCalculator->getLevel($user->getExperience());
-
-        
+            
             $userId = $user->getId();
             $listAchievement = $repoAchievement->findBy(['user' => $userId]);
             $criteria = new Criteria();
