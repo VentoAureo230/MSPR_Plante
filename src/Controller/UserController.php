@@ -19,7 +19,7 @@ class UserController extends AbstractController
     #[Route('/home/user', name: 'app_user_page')]
     public function index(LevelCalculator $levelCalculator)
     {
-        $userLevel = $levelCalculator->getLevel($user = $this->getUser()->getExperience());
+        $userLevel = $levelCalculator->getLevel($this->getUser()->getExperience());
         return $this->render('user/index.html.twig', [
             'level' => $userLevel
         ]);
@@ -53,16 +53,15 @@ class UserController extends AbstractController
     public function editPassword(User $user, Request $request, ManagerRegistry $manager, UserPasswordHasherInterface $hasher): Response
     {
         if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login'); // Si le User n'est pas co il est redirigé au login
+            return $this->redirectToRoute('app_login'); 
         }
 
-  
         $form = $this->createForm(UserPasswordType::class, $this->getUser());
-
+        
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($hasher->isPasswordValid($user = $form->getData()['plainPassword'])) {
-                $user->setUpdatedAt(new \DateTimeImmutable()); // on modifie un mdp qui à été créer à une date précise donc il faut lui donner une date d'update pour que la modification est lieu
+                $user->setCreatedAt(new \DateTimeImmutable()); // on modifie un mdp qui à été créer à une date précise donc il faut lui donner une date d'update pour que la modification est lieu
                 $user->setPlainPassword($form->getData()['plainPassword']);
 
                 $em = $manager->getManager();
