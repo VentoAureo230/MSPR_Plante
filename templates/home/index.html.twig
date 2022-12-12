@@ -9,8 +9,10 @@
 </style>
 
 <div class="example-wrapper">
+    <a href="{{ path('game') }}" class="btn">Jouer</a>
+    <a href="{{ path('app_achievement') }}" class="btn btn-info">Vos trophées</a>
     <a href="{{ path('app_user_page')}}" class="btn btn-success">Profil</a>
     <a href="{{ path('app_logout') }}" class="btn btn-danger">Déconnexion</a>
-    <a href="{{ path('game') }}" class="btn">Jouer</a>
+    
 </div>
 {% endblock %}
