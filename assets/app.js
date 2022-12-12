@@ -14,8 +14,15 @@ import './bootstrap';
 
 let plantPictureInput = document.getElementById('achievement_file_file');
 let plantPicture = document.getElementById('PlantPicture');
+let hiddenInput = document.getElementById("achievement_plant");
+let hiddenLabel =  document.querySelector('[for="achievement_plant"]');
+
+
+hiddenLabel.style.visibility = "hidden";
+hiddenInput.style.visibility = "hidden";
 plantPictureInput.setAttribute("accept","image/*");
 plantPictureInput.setAttribute("capture","camera");
+
 
 document.addEventListener("load",SetInputAchievement);
 
@@ -23,10 +30,13 @@ document.addEventListener("load",SetInputAchievement);
  
 
  function SetInputAchievement(){
+    hiddenLabel.style.visibility = "hidden";
+    hiddenInput.style.visibility = "hidden";
     plantPictureInput.setAttribute("accept","image/*");
     plantPictureInput.setAttribute("capture","camera");
-}
 
+}
+ 
 plantPictureInput.onchange = evt => {
     const [file] = plantPictureInput.files
     if (file) {

@@ -15,75 +15,64 @@ use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class UploadPhotoController extends AbstractController
 {
-    #[Route('/test', name: 'app_upload_photo')]
-    public function index(UserRepository $repoUser, LevelCalculator $levelCalculator ,PlantRepository $repoPlant, AchievementRepository $repoAchievement, Request $request, SluggerInterface $slugger, ImageLocation $location): Response
+    #[Route('/test', name: 'game')]
+    public function index(RequestStack $requestStack, UserRepository $repoUser, LevelCalculator $levelCalculator ,PlantRepository $repoPlant, AchievementRepository $repoAchievement, Request $request, SluggerInterface $slugger, ImageLocation $location): Response
     {
         // TODO récupérer vrai utilisateur
-        //$user = $repoUser->findOneBy(['id' => 7]);
-        $user = $this->getUser();
-        $plant = null;
-
-        $userLevel = $levelCalculator->getLevel($user->getExperience());
-
-        $criteria = new Criteria();
-        $criteria->where(Criteria::expr()->lte('Level', $userLevel));
-
-        $listPlant = $repoPlant->matching($criteria);
-        $userId = $user->getId();
-        $listAchievement = $repoAchievement->findBy(['user' => $userId]);
-
-        /*
-        foreach ($listPlant as $PlantToRemove) {
-            foreach($listAchievement as $achievementAlreadyAchived){
-                if ($PlantToRemove->getId() == $achievementAlreadyAchived->getPlant()->getId()){
-                    
-                    $listPlant->removeElement($PlantToRemove);
-                }
-            }
-        }*/
-
-        //$listPlant = $repoPlant->findBy(['Level' => $userLevel]);
+        $user = $repoUser->findOneBy(['id' => 7]);
+        //$user = $this->getUser();
+        $achievement = new Achievement();
 
         
-        //$message = count($listPlant);
-        //echo "<script type='text/javascript'>alert('$message');</script>";
+       
+      
+        
+        $session = $requestStack->getSession();
 
-        if ($plant == null){
-            $indexChosedPlant = rand(0, count($listPlant) - 1);
-            $plant = $listPlant[$indexChosedPlant];
+        echo "<script>console.log('Debug Objects: " . $session->get("plante_id") . "' );</script>";
+
+        if (! $request->isMethod('post'))
+        {
+            $userLevel = $levelCalculator->getLevel($user->getExperience());
+
+        
+            $userId = $user->getId();
+            $listAchievement = $repoAchievement->findBy(['user' => $userId]);
+            $criteria = new Criteria();
+            $criteria->where(Criteria::expr()->lte('Level', $userLevel))->andWhere(Criteria::expr()->eq('is_enable_for_user', 1));
+            $listPlant = $repoPlant->matching($criteria);
+
+            $neverDone = false;
+            while (!$neverDone){
+                $neverDone = true;
+                $indexPlant = rand(0,count($listPlant) - 1);
+                $plant = $listPlant[$indexPlant];
+                foreach ($listAchievement as $a) {
+                    if ($plant->getId() == $a->getPlant()->getId()){
+                        $neverDone = false;
+                    }
+                }
+            }
+            $session->set("plante_id",$plant->getId());
+            
+        echo "<script>console.log('Debug Objects: " . $session->get("plante_id") . "' );</script>";
+            $achievement->setPlant($plant);
+        }
+        else
+        {
+            $idPlant = (int)$session->get("plante_id");
+            $plant = $repoPlant->findOneBy(["id" => $idPlant]);
+            $user->setExperience(10);
         }
 
         
-
-        $message = $plant->getId();
-        echo "<script type='text/javascript'>alert('$message');</script>";
-
-        /*
-        if (count($listPlant) == 1){
-            $plant = $listPlant[0];
-        }else{
-            $indexChosedPlant = rand(0, count($listPlant) - 1);
-            $plant = $listPlant[$indexChosedPlant];
-        }*/
-
-        /*
-        $plant = null;
-
-        while ($plant == null){
-            $indexChosedPlant = rand(0, count($listPlant) - 1);
-            $plant = $listPlant[$indexChosedPlant];
-        }*/
-
-        
-        
-
-        $achievement = new Achievement();
         $form = $this->createForm(AchievementType::class, $achievement);
         $form->handleRequest($request);
 
@@ -110,9 +99,7 @@ class UploadPhotoController extends AbstractController
                 $achievement->setLatitude($imagepos['latitude']);
                 $achievement->setLongitude($imagepos['longitude']);
                 $achievement->setCreatedAt(new \DateTime());
-                $achievement->setPlant($plant);
-                $message = $plant->getId();
-        echo "<script type='text/javascript'>alert('$message');</script>";
+                //$achievement->setPlant($plant);
                 $achievement->setUser($user);
 
                 $user->setExperience($user->getExperience() + 1);
@@ -122,7 +109,7 @@ class UploadPhotoController extends AbstractController
 
                 //$message = "wrong answer";
                 //echo "<script type='text/javascript'>alert('$message');</script>";
-                return $this->redirectToRoute("admin");
+                return $this->redirectToRoute("game");
 
             }
         }
