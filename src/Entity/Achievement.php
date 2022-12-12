@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\AchievementRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AchievementRepository;
+use Symfony\Component\HttpFoundation\File\File;
+
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: AchievementRepository::class)]
+#[Vich\Uploadable]
 class Achievement
 {
     #[ORM\Id]
@@ -14,8 +18,12 @@ class Achievement
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $file_name = null;
+
+    
+    #[Vich\UploadableField(mapping:"achievement_picture", fileNameProperty:"file_name")]
+    private ?File $file = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
@@ -51,12 +59,36 @@ class Achievement
         return $this;
     }
 
+    public function getFile_Name(): ?string
+    {
+        return $this->file_name;
+    }
+
+    public function setFile_Name(string $file_name): self
+    {
+        $this->file_name = $file_name;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
     }
 
     public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getCreated_At(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreated_At(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
@@ -107,6 +139,18 @@ class Achievement
     public function setPlant(?Plant $plant): self
     {
         $this->plant = $plant;
+
+        return $this;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile(?File $file): self
+    {
+        $this->$file = $file;
 
         return $this;
     }

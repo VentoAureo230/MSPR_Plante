@@ -15,7 +15,6 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $data = 'src\DataFixtures\Ressources\data.json';
-        $faker = Factory::create('fr_FR');
         $json = file_get_contents($data);
         $decoded = array_values(json_decode($json,true));
 
@@ -23,8 +22,8 @@ class AppFixtures extends Fixture
             $plante = new Plant();
             $plante->setName($results['name']);
             $plante->setLevel($results['level']);
-            $plante->setIsEnableForUser($faker->boolean());
-            $plante->setIsEnable($faker->boolean());
+            $plante->setIsEnableForUser(true);
+            $plante->setIsEnable(true);
             $manager->persist($plante);
             
             // Managing photo storage

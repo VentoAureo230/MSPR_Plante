@@ -32,6 +32,18 @@ class Picture
         return $this->id;
     }
 
+    public function getFile_Name()
+    {
+        return $this->file_name;
+    }
+
+    public function setFile_Name(string $file_name): self
+    {
+        $this->file_name = $file_name;
+
+        return $this;
+    }
+
     public function getFileName()
     {
         return $this->file_name;

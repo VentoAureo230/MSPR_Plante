@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AchievementController!{% endblock %}
+
+{% block body %}
+
+{% for achievement in Achievements %}
+        <p>=====================</p>
+        <p>=====================</p>
+        <p>{{achievement.plant.name}}</p>
+        <p> date de découverte : {{achievement.created_at|date('Y-m-d')}}</p>
+        
+        <img class="Picture" src="{{ ( asset(AchievementLogoPath ~ achievement.file_name)) }}">
+{% endfor %}
+
+{% endblock %}

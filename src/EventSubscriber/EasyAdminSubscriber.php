@@ -3,11 +3,12 @@
 namespace App\EventSubscriber;
 
 use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
-use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use PhpParser\Node\Expr\Cast\Array_;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class EasyAdminSubscriber implements EventSubscriberInterface
@@ -16,9 +17,10 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     private $entityManager;
     private $passwordEncoder;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
     {
         $this->entityManager = $entityManager;
+        $this->passwordEncoder = $userPasswordHasher;
     }
 
     public static function getSubscribedEvents():Array
@@ -44,8 +46,8 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         $entity = $event->getEntityInstance();
 
         if ($entity instanceof User) {
-            $entity->setRoles(["ROLE_ADMIN"]);
-            //$this->setPassword($entity);
+            $entity->setRoles(array('ROLE_ADMIN'));
+            $this->setPassword($entity);
         }
     }
 
@@ -57,7 +59,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         $pass = $entity->getPassword();
 
         $entity->setPassword(
-            $this->passwordEncoder->encodePassword(
+            $this->passwordEncoder->hashPassword(
                 $entity,
                 $pass
             )

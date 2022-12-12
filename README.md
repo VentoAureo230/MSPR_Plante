@@ -45,6 +45,9 @@ composer require symfony/ux-live-component
 ```
 npm install --force
 ```
+```
+php bin/console assets:install
+```
 
 ```
 php bin/console doctrine:database:create
