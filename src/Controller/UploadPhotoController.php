@@ -74,7 +74,6 @@ class UploadPhotoController extends AbstractController
 
                 try {
                     $plantPicture->move($this->getParameter('app.path.achievement_picture'), $newFileName);
-                    //$plantPicture->move($this->getParameter('app.path.achievement_picture'), $originaleFilename);
                     $achievement->setFileName($newFileName);
                 } catch (FileException $e) {
                     return $this->render('error.html.twig', [
@@ -89,7 +88,6 @@ class UploadPhotoController extends AbstractController
                 $achievement->setLatitude($imagepos['latitude']);
                 $achievement->setLongitude($imagepos['longitude']);
                 $achievement->setCreatedAt(new \DateTime());
-                //$achievement->setPlant($plant);
                 $achievement->setUser($user);
 
                 $user->setExperience($user->getExperience() + 1);
@@ -97,8 +95,6 @@ class UploadPhotoController extends AbstractController
                 
                 $repoAchievement->save($achievement, true);
 
-                //$message = "wrong answer";
-                //echo "<script type='text/javascript'>alert('$message');</script>";
                 return $this->redirectToRoute("app_achievement");
 
             }

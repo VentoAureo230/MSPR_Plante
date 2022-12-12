@@ -12,10 +12,7 @@ class AchievementController extends AbstractController
     #[Route('/achievement', name: 'app_achievement')]
     public function index(AchievementRepository $repoAchievement): Response
     {
-
-        // TODO récupérer vrai utilisateur
         $userId = $this->getUser();
-
         $listAchievement = $repoAchievement->findBy(["user" => $userId]);
 
         return $this->render('achievement/index.html.twig', [

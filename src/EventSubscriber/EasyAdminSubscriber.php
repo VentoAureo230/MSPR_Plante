@@ -3,13 +3,11 @@
 namespace App\EventSubscriber;
 
 use App\Entity\User;
-use PhpParser\Node\Expr\Cast\Array_;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class EasyAdminSubscriber implements EventSubscriberInterface
 {
@@ -38,7 +36,6 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         if (!($entity instanceof User)) {
             return;
         }
-        //$this->setPassword($entity);
     }
 
     public function addUser(BeforeEntityPersistedEvent $event)

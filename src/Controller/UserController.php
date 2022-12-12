@@ -65,11 +65,9 @@ class UserController extends AbstractController
                 $user->setUpdatedAt(new \DateTimeImmutable()); // on modifie un mdp qui à été créer à une date précise donc il faut lui donner une date d'update pour que la modification est lieu
                 $user->setPlainPassword($form->getData()['plainPassword']);
 
-
                 $em = $manager->getManager();
                 $em->persist($user);
                 $em->flush();
-
 
                 $this->addFlash(
                     'success',

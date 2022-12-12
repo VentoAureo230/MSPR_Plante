@@ -8,7 +8,6 @@ use App\Entity\Hint;
 use App\Entity\Picture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Faker\Factory;
 
 class AppFixtures extends Fixture
 {
