@@ -27,24 +27,13 @@ Pour exécuter le projet ouvrez votre terminal dans le dossier du projet.
 2. Exécutez cette suite de commande :
 
 ```
-composer require symfony/runtime
-```
-
-```
-composer require webpack-encore-bundle
-```
-
-```
-composer require symfony/ux-twig-component
-```
-
-```
-composer require symfony/ux-live-component
+composer install
 ```
 
 ```
 npm install --force
 ```
+
 ```
 php bin/console assets:install
 ```
@@ -58,6 +47,7 @@ php bin/console doctrine:database:create
 ```
 php bin/console doctrine:migrations:migrate
 ```
+
 4. Démarrer le serveur Symfony :
 
 
