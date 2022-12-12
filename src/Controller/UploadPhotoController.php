@@ -30,10 +30,6 @@ class UploadPhotoController extends AbstractController
         //$user = $this->getUser();
         $achievement = new Achievement();
 
-        
-       
-      
-        
         $session = $requestStack->getSession();
 
         echo "<script>console.log('Debug Objects: " . $session->get("plante_id") . "' );</script>";
@@ -76,8 +72,8 @@ class UploadPhotoController extends AbstractController
         $form = $this->createForm(AchievementType::class, $achievement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() ){
-            $plantPicture =  $form->get('file')->getData();
+        if ($form->get("yes")->isclicked()){
+            $plantPicture =  $form->get('file_name')->getData();
             if ($plantPicture) {
                 $originaleFilename = pathinfo($plantPicture->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originaleFilename);
@@ -85,6 +81,7 @@ class UploadPhotoController extends AbstractController
 
                 try {
                     $plantPicture->move($this->getParameter('app.path.achievement_picture'), $newFileName);
+                    //$plantPicture->move($this->getParameter('app.path.achievement_picture'), $originaleFilename);
                     $achievement->setFileName($newFileName);
                 } catch (FileException $e) {
                     return $this->render('error.html.twig', [
@@ -112,21 +109,7 @@ class UploadPhotoController extends AbstractController
                 return $this->redirectToRoute("game");
 
             }
-        }
-
-        //$plantPicture = $this->$form->get('PlantPicture')->getData();
-/*
-        if ($plantPicture){
-            
-        }
-
-        if ($form->isSubmitted() && $form->isValid()){
-
-        }else{
-            
-        }
-*/
-        
+        }   
 
         return $this->render('upload_photo/index.html.twig', [
             'AchievementForm' => $form->createView(),

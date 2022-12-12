@@ -18,7 +18,7 @@ class Achievement
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $file_name = null;
 
     
@@ -53,6 +53,18 @@ class Achievement
     }
 
     public function setFileName(string $file_name): self
+    {
+        $this->file_name = $file_name;
+
+        return $this;
+    }
+
+    public function getFile_Name(): ?string
+    {
+        return $this->file_name;
+    }
+
+    public function setFile_Name(string $file_name): self
     {
         $this->file_name = $file_name;
 
