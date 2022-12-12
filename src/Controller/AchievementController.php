@@ -14,7 +14,7 @@ class AchievementController extends AbstractController
     {
 
         // TODO récupérer vrai utilisateur
-        $userId = 7;
+        $userId = $this->getUser();
 
         $listAchievement = $repoAchievement->findBy(["user" => $userId]);
 
