@@ -39,26 +39,7 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $this->getUser());
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($hasher->isPasswordValid($form->getData()->getPlainPassword())) {
-                $user = $form->getData();
-                $em = $manager->getManager();
-                $em->persist($user);
-                $em->flush();
-
-                $this->addFlash(
-                    'success',
-                    'Les infos ont bien été modifiés.'
-                );
-
-                return $this->redirectToRoute('home');
-            } else {
-                $this->addFlash(
-                    'warning',
-                    'Le mot de passe renseigné est incorrect.'
-                );
-            }
-        }
+        if ($form->isSubmitted() && $form->isValid()) {}
 
         return $this->render('user/edit.html.twig', [
             'form' => $form->createView(),

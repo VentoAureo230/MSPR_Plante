@@ -25,9 +25,7 @@ class UploadPhotoController extends AbstractController
     #[Route('/test', name: 'game')]
     public function index(RequestStack $requestStack, UserRepository $repoUser, LevelCalculator $levelCalculator ,PlantRepository $repoPlant, AchievementRepository $repoAchievement, Request $request, SluggerInterface $slugger, ImageLocation $location): Response
     {
-        // TODO récupérer vrai utilisateur
-        $user = $repoUser->findOneBy(['id' => 7]);
-        //$user = $this->getUser();
+        $user = $this->getUser();
         $achievement = new Achievement();
 
         $session = $requestStack->getSession();
