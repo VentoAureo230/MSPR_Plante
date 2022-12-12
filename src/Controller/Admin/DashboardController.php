@@ -4,14 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Plant;
-use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DashboardController extends AbstractDashboardController
 {
