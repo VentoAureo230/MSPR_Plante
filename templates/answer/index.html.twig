@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AnswerController!{% endblock %}
+
+{% block body %}
+
+<h1>Bravo {{User.firstname}} !!</h1>
+ <p>Tu a trouvé : {{Plant.name}}</p> 
+
+
+<img class="picture"  src="{{ ( asset( PlantPicturePath ~ Plant.file_name)) }}">
+
+{% for answer in Plant.answers %}
+
+    {% if answer.title != null %}
+        <p>{{answer.title}}</p>
+    {% endif %}
+    {% if answer.logo != null %}
+        <img class="logo"  src="{{ ( asset( HintLogoPath ~ hint.logo)) }}">
+    {% endif %}
+
+    <p>{{ hint.text }}</p>
+
+{% endfor %}
+
+
+
+{% endblock %}
