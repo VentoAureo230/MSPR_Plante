@@ -6,23 +6,29 @@
 
 <h1>Bravo {{User.firstname}} !!</h1>
  <p>Tu a trouvé : {{Plant.name}}</p> 
+{% for picture in Plant.pictures %}
+    <img class="logo"  src="{{ ( asset( PlantPicturePath ~ picture.file_name)) }}">
+{% endfor %}
 
 
-<img class="picture"  src="{{ ( asset( PlantPicturePath ~ Plant.file_name)) }}">
 
 {% for answer in Plant.answers %}
 
-    {% if answer.title != null %}
-        <p>{{answer.title}}</p>
+    {% if answer.Title != null %}
+        <p>{{answer.Title}}</p>
     {% endif %}
     {% if answer.logo != null %}
-        <img class="logo"  src="{{ ( asset( HintLogoPath ~ hint.logo)) }}">
+        <img class="logo"  src="{{ ( asset( AnswerLogoPath ~ answer.logo)) }}">
     {% endif %}
+    <p>{{answer.text}}</p>
 
-    <p>{{ hint.text }}</p>
 
 {% endfor %}
 
+
+    <a href="{{ path('game') }}" class="btn">Jouer</a>
+    <a href="{{ path('app_achievement') }}" class="btn btn-info">Vos trophées</a>
+    <a href="{{ path('home')}}" class="btn btn-success">Accueil</a>
 
 
 {% endblock %}

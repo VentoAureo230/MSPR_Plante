@@ -97,7 +97,6 @@ class UploadPhotoController extends AbstractController
                 
                 $repoAchievement->save($achievement, true);
 
-                
 
                 return $this->redirectToRoute("app_answer", [
                     'idPlant' => $achievement->getPlant()->getId()

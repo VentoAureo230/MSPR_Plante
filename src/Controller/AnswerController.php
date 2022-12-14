@@ -12,10 +12,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AnswerController extends AbstractController
 {
     #[Route('/answer', name: 'app_answer')]
-    public function index(Request $request, AchievementRepository $repoAchievement, PlantRepository $repoPlant): Response
+    public function index(AchievementRepository $repoAchievement, PlantRepository $repoPlant): Response
     {
-        $idPlant = $request->request->get("idPlant");
-        echo "<script>console.log('Debug Objects: " . $idPlant . "' );</script>";
+        $request = Request::createFromGlobals();
+        $idPlant = $request->get("idPlant");
 
         $user = $this->getUser();
         //$achievement = $repoAchievement->findOneBy(array('plant' => $idPlant, 'user' => $user->getId()));
