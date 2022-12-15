@@ -4,13 +4,16 @@
 
 {% block body %}
 
-{% for achievement in Achievements %}
-        <p>=====================</p>
-        <p>=====================</p>
-        <p>{{achievement.plant.name}}</p>
-        <p> date de découverte : {{achievement.created_at|date('Y-m-d')}}</p>
+<div class="ContainerAchievement">
+        {% for achievement in Achievements %}
+                <div class="Achievement">
+                        <a href="{{ path('app_achievement_show',{'id': achievement.plant.id}) }}">
+                                <p class="funFont fontsize-2rem">{{achievement.plant.name}}</p>
+                                <p> date de découverte : {{achievement.created_at|date('Y-m-d')}}</p>
+                                <img class="AchievementPicture" src="{{ ( asset(AchievementLogoPath ~ achievement.file_name)) }}">
+                        </a>
+                </div>
         
-        <img class="Picture" src="{{ ( asset(AchievementLogoPath ~ achievement.file_name)) }}">
-{% endfor %}
-
+        {% endfor %}
+</div>
 {% endblock %}

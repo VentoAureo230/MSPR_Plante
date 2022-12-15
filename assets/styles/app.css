@@ -179,3 +179,33 @@ body {
 .margin-15rem{
   margin: 5rem;
 }
+
+.ContainerAchievement{
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.Achievement{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 40%;
+  padding: 1rem;
+  margin: 1rem;
+  border: 10px solid green;
+  border-radius: 20px;
+  background-color: rgb(172, 163, 113);
+}
+
+.AchievementPicture{
+  max-width: 90%;
+  border: 6px solid rgb(21, 107, 0);
+  border-radius: 5px;
+}
+
+.fontsize-2rem{
+  font-size: 2rem;
+}
