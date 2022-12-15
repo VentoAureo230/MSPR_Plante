@@ -23,33 +23,48 @@ class UploadPhotoController extends AbstractController
     #[Route('/seek&find', name: 'game')]
     public function index(RequestStack $requestStack, UserRepository $repoUser, LevelCalculator $levelCalculator ,PlantRepository $repoPlant, AchievementRepository $repoAchievement, Request $request, SluggerInterface $slugger, ImageLocation $location): Response
     {
+
+        
+
         $user = $this->getUser();
         $achievement = new Achievement();
 
         $session = $requestStack->getSession();
+        echo "<script>console.log('Debug Objects: " . $session->get("plante_id") . "' );</script>";
 
         if (! $request->isMethod('post'))
         {
-            $userLevel = $levelCalculator->getLevel($user->getExperience());
-            
-            $userId = $user->getId();
-            $listAchievement = $repoAchievement->findBy(['user' => $userId]);
-            $criteria = new Criteria();
-            $criteria->where(Criteria::expr()->lte('Level', $userLevel))->andWhere(Criteria::expr()->eq('is_enable_for_user', 1));
-            $listPlant = $repoPlant->matching($criteria);
 
-            $neverDone = false;
-            while (!$neverDone){
-                $neverDone = true;
-                $indexPlant = rand(0,count($listPlant) - 1);
-                $plant = $listPlant[$indexPlant];
-                foreach ($listAchievement as $a) {
-                    if ($plant->getId() == $a->getPlant()->getId()){
-                        $neverDone = false;
+            if($session->has("plante_id")){
+                echo "<script>console.log('Debug Objects get from session: " . $session->get("plante_id") . "' );</script>";
+                $plantId = (int)$session->get('plante_id');
+                $plant = $repoPlant->findOneBy(['id' => $plantId]);
+                
+            }else{
+                $userLevel = $levelCalculator->getLevel($user->getExperience());
+            
+                $userId = $user->getId();
+                $listAchievement = $repoAchievement->findBy(['user' => $userId]);
+                $criteria = new Criteria();
+                $criteria->where(Criteria::expr()->lte('Level', $userLevel))->andWhere(Criteria::expr()->eq('is_enable_for_user', 1));
+                $listPlant = $repoPlant->matching($criteria);
+    
+                $neverDone = false;
+                while (!$neverDone){
+                    $neverDone = true;
+                    $indexPlant = rand(0,count($listPlant) - 1);
+                    $plant = $listPlant[$indexPlant];
+                    foreach ($listAchievement as $a) {
+                        if ($plant->getId() == $a->getPlant()->getId()){
+                            $neverDone = false;
+                        }
                     }
                 }
+                $session->set("plante_id",$plant->getId());
+
             }
-            $session->set("plante_id",$plant->getId());
+
+            
             
         //echo "<script>console.log('Debug Objects: " . $session->get("plante_id") . "' );</script>";
             $achievement->setPlant($plant);
@@ -58,9 +73,7 @@ class UploadPhotoController extends AbstractController
         {
             $idPlant = (int)$session->get("plante_id");
             $plant = $repoPlant->findOneBy(["id" => $idPlant]);
-            $user->setExperience(10);
 
-            $session->remove("plante_id");
         }
 
         
@@ -96,6 +109,9 @@ class UploadPhotoController extends AbstractController
                 $repoUser->save($user);
                 
                 $repoAchievement->save($achievement, true);
+
+                
+                $session->remove("plante_id");
 
 
                 return $this->redirectToRoute("app_answer", [
