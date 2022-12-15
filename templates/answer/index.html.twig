@@ -4,31 +4,36 @@
 
 {% block body %}
 
-<h1>Bravo {{User.firstname}} !!</h1>
- <p>Tu a trouvé : {{Plant.name}}</p> 
+<h1 class="funFont">Bravo {{User.firstname}} !!</h1>
+<p class="funFont">Tu a trouvé :</p> 
+<p class="funFont"> {{Plant.name}}</p> 
+ {#
 {% for picture in Plant.pictures %}
     <img class="logo"  src="{{ ( asset( PlantPicturePath ~ picture.file_name)) }}">
-{% endfor %}
+{% endfor %}#}
 
 
+<div class="informations">
+    <img <img class="PictureFound"  src="{{ ( asset( AchievementPicturePath ~ Achievement.file_name)) }}">
+    {% for answer in Plant.answers %}
 
-{% for answer in Plant.answers %}
-
-    {% if answer.Title != null %}
-        <p>{{answer.Title}}</p>
-    {% endif %}
-    {% if answer.logo != null %}
-        <img class="logo"  src="{{ ( asset( AnswerLogoPath ~ answer.logo)) }}">
-    {% endif %}
-    <p>{{answer.text}}</p>
-
-
-{% endfor %}
+        {% if answer.Title != null %}
+            <p>{{answer.Title}}</p>
+        {% endif %}
+        {% if answer.logo != null %}
+            <img class="logo"  src="{{ ( asset( AnswerLogoPath ~ answer.logo)) }}">
+        {% endif %}
+        <p class="margin-15rem">{{answer.text}}</p>
 
 
+    {% endfor %}
+</div>
+
+
+<div class="flex-row">
     <a href="{{ path('game') }}" class="btn">Jouer</a>
     <a href="{{ path('app_achievement') }}" class="btn btn-info">Vos trophées</a>
     <a href="{{ path('home')}}" class="btn btn-success">Accueil</a>
-
+</div>
 
 {% endblock %}
