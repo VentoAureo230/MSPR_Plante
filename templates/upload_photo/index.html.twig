@@ -24,9 +24,29 @@
 
 <p>Voici quelques photos :</p>
 
+
+
+
+<div class="slideshow-container">
+
+      
+
 {% for picture in Plant.pictures %}
-        <img class="Picture" src="{{ ( asset(PlantPicturePath ~ picture.file_name)) }}">
+    <div class="mySlides fade">
+        <div class="numbertext">1 / 3</div>
+            <img src="{{ ( asset(PlantPicturePath ~ picture.file_name)) }}" style="width:100%">
+        <div class="text">London, Ebgland</div>
+    </div>
+    {#img class="Picture" src="{{ ( asset(PlantPicturePath ~ picture.file_name)) }}">#}
 {% endfor %}
+
+      <a id="prev" class="prev">&#10094;</a>
+      <a id="next" class="next">&#10095;</a>
+
+    </div>
+    <br>
+
+
 
 <p></p>
 
@@ -34,6 +54,8 @@
 {#
 <input type="file" id="achievement_file_file" name="achievement[file][file]" required="required" class="form-control" accept="image/*" capture="camera" multiple>
 #}
+
+    
 
 <p id="labelValidationPlante">Est-ce la bonne Plante ? </p>
 

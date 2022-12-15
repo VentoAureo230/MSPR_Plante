@@ -53,3 +53,44 @@ plantPictureInput.onchange = evt => {
         labelValidationPlante.style.visibility = "visible";
     }
   }
+
+//slideshow
+let slideIndex = 1;
+let $prev = document.getElementById("prev");
+let $next = document.getElementById("next");
+
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  console.log('plusslide');
+  showSlides(slideIndex += 1);
+}
+
+function minusSlides(n) {
+  console.log('plusslide');
+  showSlides(slideIndex -= 1);
+}
+
+function currentSlide(n) {
+  console.log('current slide');
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+    slides[i].style.opacity = "1";  
+  }
+
+  slides[slideIndex-1].style.display = "block";  
+}
+
+
+
+
+$next.addEventListener('click',plusSlides);
+$prev.addEventListener('click',minusSlides);

@@ -34,12 +34,12 @@ class UploadPhotoController extends AbstractController
 
         if (! $request->isMethod('post'))
         {
-
+            // si une plante a été attribué, récupération de l'id dans la session
             if($session->has("plante_id")){
                 echo "<script>console.log('Debug Objects get from session: " . $session->get("plante_id") . "' );</script>";
                 $plantId = (int)$session->get('plante_id');
                 $plant = $repoPlant->findOneBy(['id' => $plantId]);
-                
+            // sinon atribution d'une plante aléatoire en fonction du niveau de joueur
             }else{
                 $userLevel = $levelCalculator->getLevel($user->getExperience());
             
@@ -69,6 +69,7 @@ class UploadPhotoController extends AbstractController
         //echo "<script>console.log('Debug Objects: " . $session->get("plante_id") . "' );</script>";
             $achievement->setPlant($plant);
         }
+        // si c'est une requête POST, autrement dit, la confirmation que c'est la bonne plante, récupération de l'id de la plante dans la session
         else
         {
             $idPlant = (int)$session->get("plante_id");
