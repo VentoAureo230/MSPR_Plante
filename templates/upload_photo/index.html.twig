@@ -37,8 +37,8 @@
     {{ form_start(AchievementForm)}}
         {{ form_row(AchievementForm.file_name) }}
     <div class="flex-row">
-        {{ form_row(AchievementForm.yes) }}
-        {{ form_row(AchievementForm.no) }}
+        {{ form_widget(AchievementForm.yes, { 'attr': {'class': 'btn-primary btn-primary-custom'}})  }}
+        {{ form_widget(AchievementForm.no, { 'attr': {'class': 'btn-primary btn-primary-custom'}}) }}
     </div>
     {{ form_end(AchievementForm)}}
 </div>
