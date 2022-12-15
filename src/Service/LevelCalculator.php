@@ -11,6 +11,7 @@ class LevelCalculator
             if ($level < 1){
                 return 1;
             }
-            return $level;
+            $float_int = (int)$level;
+            return $float_int;
         }
 }
