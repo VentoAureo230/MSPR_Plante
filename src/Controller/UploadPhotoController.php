@@ -51,7 +51,7 @@ class UploadPhotoController extends AbstractController
             }
             $session->set("plante_id",$plant->getId());
             
-        echo "<script>console.log('Debug Objects: " . $session->get("plante_id") . "' );</script>";
+        //echo "<script>console.log('Debug Objects: " . $session->get("plante_id") . "' );</script>";
             $achievement->setPlant($plant);
         }
         else
@@ -59,6 +59,8 @@ class UploadPhotoController extends AbstractController
             $idPlant = (int)$session->get("plante_id");
             $plant = $repoPlant->findOneBy(["id" => $idPlant]);
             $user->setExperience(10);
+
+            $session->remove("plante_id");
         }
 
         
@@ -95,7 +97,10 @@ class UploadPhotoController extends AbstractController
                 
                 $repoAchievement->save($achievement, true);
 
-                return $this->redirectToRoute("app_achievement");
+
+                return $this->redirectToRoute("app_answer", [
+                    'idPlant' => $achievement->getPlant()->getId()
+                ]);
 
             }
         }   

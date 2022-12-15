@@ -23,7 +23,7 @@
         "title": "Savais-tu que le plantain pouvait se manger ? "
       },
       {
-        "logo": "mosquito.svg",
+        "logo": "moustique.png",
         "text": "Face aux piqures de moustique il est génial! Il faut frotter la feuille sur le bouton et tu ne sens plus quça gratte !"
       }
     ]
@@ -83,7 +83,7 @@
       }
     ],
     "photos": [
-      "./la-ronce.jpg"
+      "ronce.jpg"
     ],
     "after": [
       {
@@ -106,7 +106,7 @@
       }
     ],
     "photos": [
-      "pissenlit.jpg"
+      "pissenlit.jpeg"
     ],
     "after": [
       {
