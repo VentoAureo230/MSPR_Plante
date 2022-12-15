@@ -6,31 +6,25 @@
 {% block body %}
 	<link rel="stylesheet" href="{{asset ('assets/css/style_achievement.css')}}">
 
-	{% for achievement in Achievements %}
-		<h1 class="name">{{achievement.plant.name}}</h1>
-		<p>
-			date de découverte :
-			{{achievement.created_at|date('Y-m-d')}}</p>
 
-<div class="ContainerAchievement">
-        {% for achievement in Achievements %}
-                <div class="Achievement">
-                        <a href="{{ path('app_achievement_show',{'id': achievement.plant.id}) }}">
-                                <p class="funFont fontsize-2rem">{{achievement.plant.name}}</p>
-                                <p> date de découverte : {{achievement.created_at|date('Y-m-d')}}</p>
-                                <img class="AchievementPicture" src="{{ ( asset(AchievementLogoPath ~ achievement.file_name)) }}">
-                        </a>
-                        <a class="redButton" href="{{ path('app_achievement_delete',{'id': achievement.plant.id}) }}">Supprimer</a>
-                </div>
-                        
-        
-        {% endfor %}
-        {% endfor %}
+	<div class="ContainerAchievement">
+		{% for achievement in Achievements %}
+			<div class="Achievement">
+				<a href="{{ path('app_achievement_show',{'id': achievement.plant.id}) }}">
+					<p class="funFont fontsize-2rem">{{achievement.plant.name}}</p>
+					<p>
+						date de découverte :
+						{{achievement.created_at|date('Y-m-d')}}</p>
+					<img class="AchievementPicture" src="{{ ( asset(AchievementLogoPath ~ achievement.file_name)) }}">
+				</a>
+				<a class="redButton" href="{{ path('app_achievement_delete',{'id': achievement.plant.id}) }}">Supprimer</a>
+			</div>
+		{% endfor %}
+	</div>
+<div >
+    <a href="{{ path('game') }}" class="btn">Rejouer !!!</a>
+    <a href="{{ path('app_achievement') }}" class="btn btn-info">Vos trophées</a>
+    <a href="{{ path('home')}}" class="btn btn-success">Accueil</a>
 </div>
-{#
-		<img class="Picture" src="{{ ( asset(AchievementLogoPath ~ achievement.file_name)) }}">
-	
-	<a href=" {{ path('home') }}" class="btn btn-primary">Home</a> #}
-
 
 {% endblock %}
