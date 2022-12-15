@@ -21,14 +21,19 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setCreatedAt(new \DateTimeImmutable());
             $user->setRoles(array('ROLE_USER'));
+            $user->setExperience(0);
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $filename=date('Y-m-d').'_'.$user->getFirstname().'_'.$form['profile_picture']->getData()->getClientOriginalName();//['test'];
+            $file = $form['profile_picture']->getData();
+            $file->move('images/avatar/', $filename);
+            $user->setProfilePicture($filename);
             $entityManager->persist($user);
             $entityManager->flush();
 

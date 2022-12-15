@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AnswerController!{% endblock %}
+{% block title %}Hello AnswerController!
+{% endblock %}
 
 {% block body %}
+	<link rel="stylesheet" href="{{asset ('assets/css/style_answer.css')}}">
+
 
 <h1 class="funFont">Bravo {{User.firstname}} !!</h1>
 <p class="funFont">Tu a trouvé :</p> 
@@ -29,11 +32,45 @@
     {% endfor %}
 </div>
 
+{#
+	<h1>Bravo
+		{{User.firstname}}
+		!!</h1>
+	<p>Tu a trouvé :
+		{{Plant.name}}</p>
+	{% for picture in Plant.pictures %}
+		<img class="logo" src="{{ ( asset( PlantPicturePath ~ picture.file_name)) }}">
+	{% endfor %}
+
+
+	{% for answer in Plant.answers %}
+
+		{% if answer.Title != null %}
+			<p>{{answer.Title}}</p>
+		{% endif %}
+		{% if answer.logo != null %}
+			<img class="logo" src="{{ ( asset( AnswerLogoPath ~ answer.logo)) }}">
+		{% endif %}
+		<p>{{answer.text}}</p>
+#}
+
+
+	{% endfor %}
+
 
 <div class="flex-row">
     <a href="{{ path('game') }}" class="btn">Jouer</a>
     <a href="{{ path('app_achievement') }}" class="btn btn-info">Vos trophées</a>
     <a href="{{ path('home')}}" class="btn btn-success">Accueil</a>
 </div>
+
+{#
+	<div class="bouton">
+		<a href="{{ path('game') }}" class="btn">Jouer</a>
+		<a href="{{ path('app_achievement') }}" class="btn btn-info">Vos trophées</a>
+		<a href="{{ path('home')}}" class="btn btn-success">Accueil</a>
+	</div>
+#}
+
 
 {% endblock %}

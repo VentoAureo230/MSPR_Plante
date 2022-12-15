@@ -4,17 +4,11 @@
 {% endblock %}
 
 {% block body %}
+	<link rel="stylesheet" href="{{asset ('assets/css/style_edit.css')}}">
 
 	<div class="container">
 		<h1 class="mt-4">Modifiez votre profil</div>
-
-		{% for messsage in app.flashes('warning') %}
-			<div class="alert alert-warning mt-4">
-				{{ message }}
-			</div>
-		{% endfor %}
-
 		{{form(form)}}
+			<a href=" {{ path('home') }}" class="btn btn-success btn-edit">Acceuil</a>
 		</div>
-
-	{% endblock %}
+{% endblock %}

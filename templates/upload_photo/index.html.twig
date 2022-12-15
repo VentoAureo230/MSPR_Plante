@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UploadPhotoController!{% endblock %}
+{% block title %}Hello UploadPhotoController!
+{% endblock %}
 
 {% block body %}
+	<link rel="stylesheet" href="{{asset ('assets/css/style_seek.css')}}">
+
+	<h1>Trouve ça mon gars :</h1>
 
 <div class="slideshow-container" width="100%">
     {% for picture in Plant.pictures %}
@@ -42,5 +46,51 @@
     </div>
     {{ form_end(AchievementForm)}}
 </div>
+
+{#
+	<h2>{{Plant.name}}</h2>
+	<h3>Niveau :
+		{{Plant.Level}}</h3>
+
+
+	{% for hint in Plant.hints %}
+
+		{% if hint.logo != null %}
+			<img class="logo" src="{{ ( asset( HintLogoPath ~ hint.logo)) }}">
+		{% endif %}
+
+		<p>{{ hint.text }}</p>
+
+	{% endfor %}
+
+	<p>Voici quelques photos :</p>
+
+	{% for picture in Plant.pictures %}
+		<img class="Picture" src="{{ ( asset(PlantPicturePath ~ picture.file_name)) }}">
+	{% endfor %}
+
+	<p></p>
+
+	<img
+	class="Picture" id="PlantPicture">
+	{#
+	<input type="file" id="achievement_file_file" name="achievement[file][file]" required="required" class="form-control" accept="image/*" capture="camera" multiple>
+	#}
+
+	<p id="labelValidationPlante">Est-ce la bonne Plante ?
+	</p>
+
+	{{ form_start(AchievementForm)}}
+
+	{{ form_row(AchievementForm.file_name) }}
+	<div class="bouton">
+		{{ form_row(AchievementForm.yes) }}
+		{{ form_row(AchievementForm.no) }}
+	</div>
+
+	<a href=" {{ path('home') }}" class="btn-accueil btn-primary">Acceuil</a>
+	{{ form_end(AchievementForm)}}
+#}
+
 
 {% endblock %}

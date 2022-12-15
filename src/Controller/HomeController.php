@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Repository\UserRepository;
-use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,9 +16,10 @@ class HomeController extends AbstractController
     }
     
     #[Route('/home', name: 'home')]
-    public function home(UserRepository $userRepo): Response
+    public function home(UserRepository $user): Response
     {
-        $firstname = null;
+        $user = $this->getUser();
+        $firstname = $user->getFirstname();
         return $this->render('home/index.html.twig', [
             'firstname' => $firstname,
         ]);

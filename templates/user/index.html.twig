@@ -1,17 +1,20 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Profil{% endblock %}
+{% block title %}Profil
+{% endblock %}
 
 {% block body %}
+	<link rel="stylesheet" href="{{asset ('assets/css/style_user.css')}}">
 
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
 	<div class="example-wrapper">
-		<p>Votre niveau : {{level}}</p>
+		<h1 class="p-4">Bienvenue
+			{{ app.user.firstname }}</h1>
+		<p>Votre niveau :
+			{{level}}</p>
 		<a href="{{ path('app_edit_user')}}" class="btn btn-primary">Modifier le profil</a>
-		<a href="{{ path('app_edit_password')}}" class="btn btn-primary">Modifier le mot de passe</a></div>
+		<a href="{{ path('app_edit_password', { 'id': user.id })}}" class="btn btn-primary">Modifier le mot de passe</a>
+		<a href="{{ path('app_delete_account', { 'id': user.id }) }}" class="btn btn-danger" onclick="return confirm('Confimez la suppression du compte')">Supprimer votre compte</a>
+		<a href=" {{ path('home') }}" class="btn btn-primary">Acceuil</a>
 	</div>
 {% endblock %}
