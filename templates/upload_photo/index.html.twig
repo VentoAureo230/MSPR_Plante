@@ -8,7 +8,46 @@
 
 	<h1>Trouve ça mon gars :</h1>
 
+<div class="slideshow-container" width="100%">
+    {% for picture in Plant.pictures %}
+        <div class="mySlides fade">
+            <img src="{{ ( asset(PlantPicturePath ~ picture.file_name)) }}" style="width:100%">
+        </div>
+    {% endfor %}
+    <a id="prev" class="prev">&#10094;</a>
+    <a id="next" class="next">&#10095;</a>
+</div>
 
+    <p class="funFont">{{Plant.name}}</p>
+
+<div id="informations" class='informations'>
+    <p class="funFont">As-tu vu cette Plante ?</p>
+    {#p>Niveau : {{Plant.Level}}</p>#}
+    {% for hint in Plant.hints %}
+        {% if hint.logo != null %}
+            <img class="logo"  src="{{ ( asset( HintLogoPath ~ hint.logo)) }}">
+        {% endif %}
+        <p>{{ hint.text }}</p>
+    {% endfor %}
+    <p>Prend une photo quand tu l'as trouvé !! :</p>  
+    <label for="achievement_file_name" class="custom-file-upload funFont">
+    J'ai trouvé !!
+    </label> 
+</div>
+
+<div id="validation" class='informations'>
+    <img class="PictureFound" id="PlantPicture">
+    <p id="labelValidationPlante" class="funFont">Est-ce la bonne Plante ? </p>
+    {{ form_start(AchievementForm)}}
+        {{ form_row(AchievementForm.file_name) }}
+    <div class="flex-row">
+        {{ form_widget(AchievementForm.yes, { 'attr': {'class': 'btn-primary btn-primary-custom'}})  }}
+        {{ form_widget(AchievementForm.no, { 'attr': {'class': 'btn-primary btn-primary-custom'}}) }}
+    </div>
+    {{ form_end(AchievementForm)}}
+</div>
+
+{#
 	<h2>{{Plant.name}}</h2>
 	<h3>Niveau :
 		{{Plant.Level}}</h3>
@@ -51,6 +90,7 @@
 
 	<a href=" {{ path('home') }}" class="btn-accueil btn-primary">Acceuil</a>
 	{{ form_end(AchievementForm)}}
+#}
 
 
 {% endblock %}

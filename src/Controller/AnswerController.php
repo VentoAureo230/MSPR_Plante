@@ -18,15 +18,17 @@ class AnswerController extends AbstractController
         $idPlant = $request->get("idPlant");
 
         $user = $this->getUser();
-        //$achievement = $repoAchievement->findOneBy(array('plant' => $idPlant, 'user' => $user->getId()));
+        $achievement = $repoAchievement->findOneBy(array('plant' => $idPlant, 'user' => $user->getId()));
         $plant = $repoPlant->findOneBy(["id" => $idPlant]);
 
         return $this->render('answer/index.html.twig', [
             //'Achievement' => $achievement,
             'Plant' => $plant,
             'User' => $user,
+            'Achievement' => $achievement,
             'PlantPicturePath' => $this->getParameter("app.path.plant_picture") . "/",
-            'AnswerLogoPath' => $this->getParameter('app.path.answer_logo') . "/"
+            'AnswerLogoPath' => $this->getParameter('app.path.answer_logo') . "/",
+            'AchievementPicturePath' => $this->getParameter('app.path.achievement_picture') . "/"
         ]);
     }
 }

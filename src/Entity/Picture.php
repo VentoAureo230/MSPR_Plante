@@ -37,7 +37,7 @@ class Picture
         return $this->file_name;
     }
 
-    public function setFile_Name(string $file_name): self
+    public function setFile_Name(?string $file_name): self
     {
         $this->file_name = $file_name;
 
@@ -49,7 +49,7 @@ class Picture
         return $this->file_name;
     }
 
-    public function setFileName(string $file_name): self
+    public function setFileName(?string $file_name): self
     {
         $this->file_name = $file_name;
 

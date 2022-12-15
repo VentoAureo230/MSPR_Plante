@@ -12,8 +12,24 @@
 			date de découverte :
 			{{achievement.created_at|date('Y-m-d')}}</p>
 
+<div class="ContainerAchievement">
+        {% for achievement in Achievements %}
+                <div class="Achievement">
+                        <a href="{{ path('app_achievement_show',{'id': achievement.plant.id}) }}">
+                                <p class="funFont fontsize-2rem">{{achievement.plant.name}}</p>
+                                <p> date de découverte : {{achievement.created_at|date('Y-m-d')}}</p>
+                                <img class="AchievementPicture" src="{{ ( asset(AchievementLogoPath ~ achievement.file_name)) }}">
+                        </a>
+                        <a class="redButton" href="{{ path('app_achievement_delete',{'id': achievement.plant.id}) }}">Supprimer</a>
+                </div>
+                        
+        
+        {% endfor %}
+</div>
+{#
 		<img class="Picture" src="{{ ( asset(AchievementLogoPath ~ achievement.file_name)) }}">
 	{% endfor %}
-	<a href=" {{ path('home') }}" class="btn btn-primary">Home</a>
+	<a href=" {{ path('home') }}" class="btn btn-primary">Home</a> #}
+
 
 {% endblock %}
