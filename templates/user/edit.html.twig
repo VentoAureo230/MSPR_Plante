@@ -4,17 +4,8 @@
 {% endblock %}
 
 {% block body %}
-
 	<div class="container">
 		<h1 class="mt-4">Modifiez votre profil</div>
-
-		{% for messsage in app.flashes('warning') %}
-			<div class="alert alert-warning mt-4">
-				{{ message }}
-			</div>
-		{% endfor %}
-
-		{{form(form)}}
+			{{form(form)}}
 		</div>
-
-	{% endblock %}
+{% endblock %}

@@ -22,6 +22,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $profile_picture = null;
+
     #[ORM\Column]
     private array $roles = [];
 
@@ -30,6 +33,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    private ?string $plainPassword = null;
 
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
@@ -43,12 +48,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Achievement::class)]
     private Collection $get_achievements;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $created_at = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt;
+
+    #[ORM\Column(type: 'datetime_immutable')] // Ajout de la colonne pour la modif de mdp
+    private ?\DateTimeImmutable $updatedAt;
 
     public function __construct()
     {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable(); // Ajout de l'updated dans le constructeur
         $this->get_achievements = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -191,13 +202,58 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeImmutable $created_at): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable // get et set pour la bdd
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of plainPassword
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * Set the value of plainPassword
+     *
+     * @return  self
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profile_picture;
+    }
+
+    public function setProfilePicture(?string $profile_picture): self
+    {
+        $this->profile_picture = $profile_picture;
+
+        return $this;
+    }
+
 }

@@ -7,26 +7,29 @@ use App\Form\UserType;
 use App\Form\UserPasswordType;
 use App\Service\LevelCalculator;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+#[Route('/home/user')]
 class UserController extends AbstractController
 {
-    #[Route('/home/user', name: 'app_user_page')]
+    #[Route('/', name: 'app_user_page')]
     public function index(LevelCalculator $levelCalculator)
     {
+
         $userLevel = $levelCalculator->getLevel($this->getUser()->getExperience());
         return $this->render('user/index.html.twig', [
-            'level' => $userLevel
+            'level' => $userLevel,
+            'user' => $this->getUser(),
         ]);
     }
 
 
-    #[Route('/user/edit_profile', name: 'app_edit_user')]
+    #[Route('/edit_profile', name: 'app_edit_user')]
     public function edit(Request $request, EntityManagerInterface $entityManager): Response
     {
         if (!$this->getUser()) {
@@ -49,43 +52,35 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/edit_password', name: 'app_edit_password', methods: ['GET', 'POST'])]
-    public function editPassword(User $user, Request $request, ManagerRegistry $manager, UserPasswordHasherInterface $hasher): Response
+    #[Route('/edit_password', name: 'app_edit_password', methods: ['GET', 'POST'])]
+    public function editPassword(Request $request,EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher,): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login'); 
-        }
-
-        // TODO Fix ce truc très chiant
-
-        $form = $this->createForm(UserPasswordType::class, $this->getUser());
-        
+        $user = $this->getUser();
+        $form = $this->createForm(UserPasswordType::class, $user);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($hasher->isPasswordValid($user = $form->getData()['plainPassword'])) {
-                $user->setCreatedAt(new \DateTimeImmutable()); // on modifie un mdp qui à été créer à une date précise donc il faut lui donner une date d'update pour que la modification est lieu
-                $user->setPlainPassword($form->getData()['plainPassword']);
-
-                $em = $manager->getManager();
-                $em->persist($user);
-                $em->flush();
-
-                $this->addFlash(
-                    'success',
-                    'Mot de passe modifié avec succès'
-                );
-
-                return $this->redirectToRoute('home');
-            } else {
-                $this->addFlash(
-                    'warning',
-                    'Mot de passe incorrect'
-                );
-            }
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->redirect('/home');
         }
-
         return $this->render('user/edit_password.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/delete_account/{id}', name: 'app_delete_account')]
+    public function deleteAccount(User $user, EntityManagerInterface $entityManager): RedirectResponse
+    {
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_login');
     }
 }

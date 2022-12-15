@@ -10,8 +10,11 @@
 </style>
 
 	<div class="example-wrapper">
+		<h1 class="p-4">Bienvenue {{ app.user.firstname }}</h1>
 		<p>Votre niveau : {{level}}</p>
 		<a href="{{ path('app_edit_user')}}" class="btn btn-primary">Modifier le profil</a>
-		<a href="{{ path('app_edit_password')}}" class="btn btn-primary">Modifier le mot de passe</a></div>
+		<a href="{{ path('app_edit_password', { 'id': user.id })}}" class="btn btn-primary">Modifier le mot de passe</a>
+		<a href="{{ path('app_delete_account', { 'id': user.id }) }}" class="btn" onclick="return confirm('Confimez la suppression du compte')">Supprimer votre compte</a>
+		<a href=" {{ path('home') }}"class="btn">Home</a>
 	</div>
 {% endblock %}
