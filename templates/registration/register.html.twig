@@ -1,38 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créez votre compte !{% endblock %}
+{% block title %}Créez votre compte !
+{% endblock %}
 
 {% block body %}
-<link rel="stylesheet" href="{{asset ('assets/css/style_register.css')}}">    
+	<link rel="stylesheet" href="{{asset ('assets/css/style_register.css')}}">
 
 
-
-
-
-<div class="login-page">
-  <div class="form">
-    <form method="post" class="login-form">
-    <h1>Create an account</h1>
-      {{ form_row(registrationForm.email) }}
-      {{ form_row(registrationForm.firstname, {
-                    label: 'Prénom'
-                    }) }}
-    {{ form_row(registrationForm.lastname, {
-                    label: 'Nom de famille'
-                    }) }}
-
-    {{ form_row(registrationForm.plainPassword) }}
-                    <button type="submit" class="btn btn-lg btn-primary">Enregistrer</button>
-                    {{ form_end(registrationForm) }}
-      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-    </form>
-  </div>
-</div>
+	<div class="login-page">
+		<div class="form">
+			<form method="post" class="login-form" enctype="multipart/form-data">
+				<h1>Create an account</h1>
+				{{ form_row(registrationForm.email) }}
+				{{ form_row(registrationForm.firstname, {label: 'Prénom'}) }}
+				{{ form_row(registrationForm.lastname, {label: 'Nom de famille'}) }}
+				{{ form_row(registrationForm.plainPassword) }}
+				{{ form_row(registrationForm.profile_picture, {label: 'Photo profil'}) }}
+				<button type="submit" class="btn btn-lg btn-primary">Enregistrer</button>
+				{{ form_end(registrationForm) }}
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			</form>
+		</div>
+	</div>
 
 
 {% endblock %}
-
-
-
-
-

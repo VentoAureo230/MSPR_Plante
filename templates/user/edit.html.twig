@@ -4,11 +4,11 @@
 {% endblock %}
 
 {% block body %}
-<link rel="stylesheet" href="{{asset ('assets/css/style_edit.css')}}">   
+	<link rel="stylesheet" href="{{asset ('assets/css/style_edit.css')}}">
 
 	<div class="container">
 		<h1 class="mt-4">Modifiez votre profil</div>
-			{{form(form)}}
+		{{form(form)}}
 			<a href=" {{ path('home') }}" class="btn btn-success btn-edit">Acceuil</a>
-	</div>
+		</div>
 {% endblock %}

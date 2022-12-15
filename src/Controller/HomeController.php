@@ -18,9 +18,10 @@ class HomeController extends AbstractController
     }
     
     #[Route('/home', name: 'home')]
-    public function home(UserRepository $userRepo): Response
+    public function home(User $user): Response
     {
-        $firstname = null;
+        $user = $this->getUser();
+        
         return $this->render('home/index.html.twig', [
             'firstname' => $firstname,
         ]);

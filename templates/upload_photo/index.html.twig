@@ -1,52 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UploadPhotoController!{% endblock %}
+{% block title %}Hello UploadPhotoController!
+{% endblock %}
 
 {% block body %}
-<link rel="stylesheet" href="{{asset ('assets/css/style_seek.css')}}">
+	<link rel="stylesheet" href="{{asset ('assets/css/style_seek.css')}}">
 
-<h1>Trouve ça mon gars :</h1>
-
-
-<h2>{{Plant.name}}</h2>
-<h3>Niveau : {{Plant.Level}}</h3>
+	<h1>Trouve ça mon gars :</h1>
 
 
-{% for hint in Plant.hints %}
+	<h2>{{Plant.name}}</h2>
+	<h3>Niveau :
+		{{Plant.Level}}</h3>
 
-    {% if hint.logo != null %}
-        <img class="logo"  src="{{ ( asset( HintLogoPath ~ hint.logo)) }}">
-    {% endif %}
 
-    <p>{{ hint.text }}</p>
+	{% for hint in Plant.hints %}
 
-{% endfor %}
+		{% if hint.logo != null %}
+			<img class="logo" src="{{ ( asset( HintLogoPath ~ hint.logo)) }}">
+		{% endif %}
 
-<p>Voici quelques photos :</p>
+		<p>{{ hint.text }}</p>
 
-{% for picture in Plant.pictures %}
-        <img class="Picture" src="{{ ( asset(PlantPicturePath ~ picture.file_name)) }}">
-{% endfor %}
+	{% endfor %}
 
-<p></p>
+	<p>Voici quelques photos :</p>
 
-<img class="Picture" id="PlantPicture">
-{#
-<input type="file" id="achievement_file_file" name="achievement[file][file]" required="required" class="form-control" accept="image/*" capture="camera" multiple>
-#}
+	{% for picture in Plant.pictures %}
+		<img class="Picture" src="{{ ( asset(PlantPicturePath ~ picture.file_name)) }}">
+	{% endfor %}
 
-<p id="labelValidationPlante">Est-ce la bonne Plante ? </p>
+	<p></p>
 
-{{ form_start(AchievementForm)}}
-    
-    {{ form_row(AchievementForm.file_name) }}
-    <div class="bouton">
-        {{ form_row(AchievementForm.yes) }}
-        {{ form_row(AchievementForm.no) }}
-    </div>
+	<img
+	class="Picture" id="PlantPicture">
+	{#
+	<input type="file" id="achievement_file_file" name="achievement[file][file]" required="required" class="form-control" accept="image/*" capture="camera" multiple>
+	#}
 
-    <a href=" {{ path('home') }}"class="btn-accueil btn-primary">Acceuil</a>
-{{ form_end(AchievementForm)}}
+	<p id="labelValidationPlante">Est-ce la bonne Plante ?
+	</p>
+
+	{{ form_start(AchievementForm)}}
+
+	{{ form_row(AchievementForm.file_name) }}
+	<div class="bouton">
+		{{ form_row(AchievementForm.yes) }}
+		{{ form_row(AchievementForm.no) }}
+	</div>
+
+	<a href=" {{ path('home') }}" class="btn-accueil btn-primary">Acceuil</a>
+	{{ form_end(AchievementForm)}}
 
 
 {% endblock %}
