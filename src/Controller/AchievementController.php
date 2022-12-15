@@ -42,4 +42,21 @@ class AchievementController extends AbstractController
             'AchievementPicturePath' => $this->getParameter('app.path.achievement_picture') . "/"
         ]);
     }
+
+    #[Route('/achievement/delete/{id}', name: 'app_achievement_delete')]
+    public function delete($id,AchievementRepository $repoAchievement, PlantRepository $repoPlant): Response
+    {
+        $idPlant = $id;
+
+        $userId = $this->getUser()->getId();
+        
+
+        $achievement = $repoAchievement->findOneBy(array('plant' => $idPlant, 'user' => $userId));
+        
+        $repoAchievement->remove($achievement, true);
+        
+
+        return $this->redirectToRoute('app_achievement');
+
+    }
 }
