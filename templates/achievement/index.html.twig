@@ -12,7 +12,7 @@
                                 <p> date de découverte : {{achievement.created_at|date('Y-m-d')}}</p>
                                 <img class="AchievementPicture" src="{{ ( asset(AchievementLogoPath ~ achievement.file_name)) }}">
                         </a>
-                        <a href="{{ path('app_achievement_delete',{'id': achievement.plant.id}) }}">Supprimer</a>
+                        <a class="redButton" href="{{ path('app_achievement_delete',{'id': achievement.plant.id}) }}">Supprimer</a>
                 </div>
                         
         

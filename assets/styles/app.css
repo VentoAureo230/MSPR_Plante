@@ -209,3 +209,15 @@ body {
 .fontsize-2rem{
   font-size: 2rem;
 }
+
+.redButton{
+  margin: 1rem;
+  background-color: red;
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.redButton:hover{
+  color: white;
+}
