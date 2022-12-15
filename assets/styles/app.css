@@ -43,10 +43,11 @@ body {
     margin-top: -22px;
     color: white;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 150px;
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
+    background-color: rgba(0, 0, 0, 0.8);
   }
   /* Position the "next button" to the right */
   .next {
@@ -122,3 +123,55 @@ body {
       font-size: 11px
     }
   }
+
+  .container{
+    min-width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+
+  .funFont{
+    text-align: center;
+    font-family: 'Manrope', sans-serif;
+
+    font-family: 'Pacifico', cursive;
+    font-size: 130px;
+  }
+
+  input[type="file"] {
+    display: none;
+}
+  .informations{
+    text-align: center;
+    color: black;
+    font-size: 3rem;
+  }
+
+
+.custom-file-upload {
+    padding: 80px;
+    text-align: center;
+    background-color: green;
+    border-radius: 100%;
+    border: 22px solid rgb(17, 86, 0);
+    display: inline-block;
+    cursor: pointer;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn-primary{
+    font-size: 100px;
+    width: 250px;
+}
+
+.PictureFound{
+    border:20px solid green ;
+    border-radius: 75px;
+    max-width: 90vw;
+}
