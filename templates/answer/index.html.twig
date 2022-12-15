@@ -3,6 +3,7 @@
 {% block title %}Hello AnswerController!{% endblock %}
 
 {% block body %}
+<link rel="stylesheet" href="{{asset ('assets/css/style_answer.css')}}">
 
 <h1>Bravo {{User.firstname}} !!</h1>
  <p>Tu a trouvé : {{Plant.name}}</p> 
@@ -25,10 +26,11 @@
 
 {% endfor %}
 
-
-    <a href="{{ path('game') }}" class="btn">Jouer</a>
-    <a href="{{ path('app_achievement') }}" class="btn btn-info">Vos trophées</a>
-    <a href="{{ path('home')}}" class="btn btn-success">Accueil</a>
+    <div class="bouton">
+        <a href="{{ path('game') }}" class="btn">Jouer</a>
+        <a href="{{ path('app_achievement') }}" class="btn btn-info">Vos trophées</a>
+        <a href="{{ path('home')}}" class="btn btn-success">Accueil</a>
+    </div>
 
 
 {% endblock %}

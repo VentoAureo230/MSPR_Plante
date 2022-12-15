@@ -3,7 +3,7 @@
 {% block title %}Hello UploadPhotoController!{% endblock %}
 
 {% block body %}
-
+<link rel="stylesheet" href="{{asset ('assets/css/style_seek.css')}}">
 
 <h1>Trouve ça mon gars :</h1>
 
@@ -40,8 +40,12 @@
 {{ form_start(AchievementForm)}}
     
     {{ form_row(AchievementForm.file_name) }}
-    {{ form_row(AchievementForm.yes) }}
-    {{ form_row(AchievementForm.no) }}
+    <div class="bouton">
+        {{ form_row(AchievementForm.yes) }}
+        {{ form_row(AchievementForm.no) }}
+    </div>
+
+    <a href=" {{ path('home') }}"class="btn-accueil btn-primary">Acceuil</a>
 {{ form_end(AchievementForm)}}
 
 

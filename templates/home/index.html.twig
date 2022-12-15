@@ -3,24 +3,26 @@
 {% block title %}Bienvenue !{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<link rel="stylesheet" href="{{asset ('assets/css/style.css')}}">    
 
-<div class="example-wrapper">
+
+<div class="container">
 
     <h1>Bienvenue sur Seek & Find !</h1>
+  
+
     <p>Ici, tu vas recevoir des missions de recherche de plante. En cliquant sur le bouton "Jouer" une plante à chercher. Une fois que tu as trouvé la plante, prends-la en photo et fait la valider par un de tes parents ou un proche.</p>
     <p>Si c'est la bonne, tu gagnes de l'expérience et on te proposera des plantes de plus haut niveau à trouver !</p>
     <p>Toutes les plantes que tu as trouvé sont sur la page "Trophées"</p>
     <p>Si c'est n'est pas la bonne, continue de chercher !</p>
     <p>Bon courage {{firstname}} et bonne chasse !</p>
-
-    <a href="{{ path('game') }}" class="btn btn-success">Jouer</a>
-    <a href="{{ path('app_user_page')}}" class="btn btn-success">Profil</a>
-    <a href="{{ path('app_achievement') }}" class="btn btn-info">Vos trophées</a>
-    <a href="{{ path('app_logout') }}" class="btn btn-danger">Déconnexion</a>
-    
 </div>
+
+    <a href="{{ path('game') }}" class="btn-game">Jouer</a>
+    <div class="navbar">
+        <a href="{{ path('app_achievement') }}" class="btn">Vos trophées</a>
+        <a href="{{ path('app_user_page')}}" class="btn">{{ app.user.firstname }}</a>
+        <a href="{{ path('app_logout') }}" class="btn">Déconnexion</a>
+    </div>
+
 {% endblock %}

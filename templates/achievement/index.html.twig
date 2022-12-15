@@ -3,11 +3,10 @@
 {% block title %}Hello AchievementController!{% endblock %}
 
 {% block body %}
+<link rel="stylesheet" href="{{asset ('assets/css/style_achievement.css')}}">    
 
 {% for achievement in Achievements %}
-        <p>=====================</p>
-        <p>=====================</p>
-        <p>{{achievement.plant.name}}</p>
+        <h1 class="name">{{achievement.plant.name}}</h1>
         <p> date de découverte : {{achievement.created_at|date('Y-m-d')}}</p>
         
         <img class="Picture" src="{{ ( asset(AchievementLogoPath ~ achievement.file_name)) }}">

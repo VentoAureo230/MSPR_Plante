@@ -1,0 +1,33 @@
+body {
+    height: 100vh;
+    background-image: url(https://img.freepik.com/vecteurs-premium/fond-flou-nature-fond-nature-feuilles-herbe_176503-156.jpg?w=996);
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover;
+    text-align: center;
+}
+
+.btn {
+    margin: 30px 196px;
+    padding: 10px 30px;
+    background-color: white;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: green;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.Picture {
+    height: 20vh;
+}
+
+.name {
+    text-align: center;
+    color: whitesmoke;
+    font-size: 40px;
+}
