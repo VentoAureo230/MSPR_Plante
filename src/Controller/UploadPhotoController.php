@@ -34,13 +34,15 @@ class UploadPhotoController extends AbstractController
 
         if (! $request->isMethod('post'))
         {
-            // si une plante a été attribué, récupération de l'id dans la session
+            $plant =null;
             if($session->has("plante_id")){
-                echo "<script>console.log('Debug Objects get from session: " . $session->get("plante_id") . "' );</script>";
                 $plantId = (int)$session->get('plante_id');
                 $plant = $repoPlant->findOneBy(['id' => $plantId]);
-            // sinon atribution d'une plante aléatoire en fonction du niveau de joueur
-            }else{
+            }
+
+
+            // si une plante a été attribué, récupération de l'id dans la session
+            if($plant == null){
                 $userLevel = $levelCalculator->getLevel($user->getExperience());
             
                 $userId = $user->getId();
@@ -61,7 +63,7 @@ class UploadPhotoController extends AbstractController
                     }
                 }
                 $session->set("plante_id",$plant->getId());
-
+            // sinon atribution d'une plante aléatoire en fonction du niveau de joueur
             }
 
             

@@ -48,6 +48,10 @@ php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 ```
 
+```
+php bin/console d:f:l
+```
+
 4. Démarrer le serveur Symfony :
 
 
@@ -73,6 +77,9 @@ Etudiant en 2ème année à l'EPSI.
 
 ## TODO
 
-- Ajouter une carte intéractive des plantes trouvées par l'utilisateur
 - Refonte complète et plus approfondis de l'UI / UX
+- Gérer les clefs orphelines des achievements lors de la supression d'un compte user associé
 
+## Info
+
+- Lien du ORA : https://app.ora.pm/p/9c14b640a74f4172ac41653f493b7670?v=0&t=k
