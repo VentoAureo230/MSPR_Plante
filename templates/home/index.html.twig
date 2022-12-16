@@ -7,9 +7,9 @@
 	<link rel="stylesheet" href="{{asset ('assets/css/style.css')}}">
 
 
-	<div class="container">
+	<div class="container-home">
 
-		<h1>Bienvenue sur Seek & Find !</h1>
+		<h1 class="font-55">Bienvenue sur Seek & Find !</h1>
 
 
 		<p>Ici, tu vas recevoir des missions de recherche de plante. En cliquant sur le bouton "Jouer" une plante à chercher. Une fois que tu as trouvé la plante, prends-la en photo et fait la valider par un de tes parents ou un proche.</p>
@@ -19,11 +19,11 @@
 		<p>Bon courage {{ firstname }} et bonne chasse !</p>
 	</div>
 
-	<a href="{{ path('game') }}" class="btn-game">Jouer</a>
+	<a href="{{ path('game') }}" class="btn-play">Jouer</a>
 	<div class="navbar">
-		<a href="{{ path('app_achievement') }}" class="btn">Vos trophées</a>
-		<a href="{{ path('app_user_page')}}" class="btn">Profil</a>
-		<a href="{{ path('app_logout') }}" class="btn">Déconnexion</a>
+		<a href="{{ path('app_achievement') }}" class="btn-nav">Vos trophées</a>
+		<a href="{{ path('app_user_page')}}" class="btn-nav">Profil</a>
+		<a href="{{ path('app_logout') }}" class="btn-nav">Déconnexion</a>
 	</div>
 
 {% endblock %}
