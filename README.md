@@ -73,6 +73,8 @@ Etudiant en 2ème année à l'EPSI.
 
 ## TODO
 
-- Ajouter une carte intéractive des plantes trouvées par l'utilisateur
 - Refonte complète et plus approfondis de l'UI / UX
 
+## Info
+
+- Lien du ORA : https://app.ora.pm/p/9c14b640a74f4172ac41653f493b7670?v=0&t=k
