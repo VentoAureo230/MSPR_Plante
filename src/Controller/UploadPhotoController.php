@@ -34,36 +34,36 @@ class UploadPhotoController extends AbstractController
 
         if (! $request->isMethod('post'))
         {
-            // si une plante a été attribué, récupération de l'id dans la session
+            $plant =null;
             if($session->has("plante_id")){
-                
-                echo "<script>console.log('Debug Objects get from session: " . $session->get("plante_id") . "' );</script>";
                 $plantId = (int)$session->get('plante_id');
                 $plant = $repoPlant->findOneBy(['id' => $plantId]);
-                if ($plant == null){
-                    
-                    $userLevel = $levelCalculator->getLevel($user->getExperience());
-                    $userId = $user->getId();
-                    $listAchievement = $repoAchievement->findBy(['user' => $userId]);
-                    $criteria = new Criteria();
-                    $criteria->where(Criteria::expr()->lte('Level', $userLevel))->andWhere(Criteria::expr()->eq('is_enable_for_user', 1));
-                    $listPlant = $repoPlant->matching($criteria);
-        
-                    $neverDone = false;
-                    while (!$neverDone){
-                        $neverDone = true;
-                        $indexPlant = rand(0,count($listPlant) - 1);
-                        $plant = $listPlant[$indexPlant];
-                        foreach ($listAchievement as $a) {
-                            if ($plant->getId() == $a->getPlant()->getId()){
-                                $neverDone = false;
-                            }
+            }
+
+
+            // si une plante a été attribué, récupération de l'id dans la session
+            if($plant == null){
+                $userLevel = $levelCalculator->getLevel($user->getExperience());
+            
+                $userId = $user->getId();
+                $listAchievement = $repoAchievement->findBy(['user' => $userId]);
+                $criteria = new Criteria();
+                $criteria->where(Criteria::expr()->lte('Level', $userLevel))->andWhere(Criteria::expr()->eq('is_enable_for_user', 1));
+                $listPlant = $repoPlant->matching($criteria);
+    
+                $neverDone = false;
+                while (!$neverDone){
+                    $neverDone = true;
+                    $indexPlant = rand(0,count($listPlant) - 1);
+                    $plant = $listPlant[$indexPlant];
+                    foreach ($listAchievement as $a) {
+                        if ($plant->getId() == $a->getPlant()->getId()){
+                            $neverDone = false;
                         }
                     }
-                $session->set("plante_id",$plant->getId());
                 }
+                $session->set("plante_id",$plant->getId());
             // sinon atribution d'une plante aléatoire en fonction du niveau de joueur
-            
             }
 
             
