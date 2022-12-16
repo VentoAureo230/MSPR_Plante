@@ -30,7 +30,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $filename=date('Y-m-d').'_'.$user->getFirstname().'_'.$form['profile_picture']->getData()->getClientOriginalName();//['test'];
+            $filename=date('Y-m-d').'_'.$user->getFirstname().'_'.$form['profile_picture']->getData()->getClientOriginalName();
             $file = $form['profile_picture']->getData();
             $file->move('images/avatar/', $filename);
             $user->setProfilePicture($filename);
