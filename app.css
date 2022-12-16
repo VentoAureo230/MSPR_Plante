@@ -9,22 +9,18 @@
   from {
     opacity: 0.4;
   }
-
   to {
     opacity: 1;
   }
 }
-
 @keyframes fade {
   from {
     opacity: 0.4;
   }
-
   to {
     opacity: 1;
   }
 }
-
 /* On smaller screens, decrease text size */
 body {
   background-color: lightgray;
@@ -89,7 +85,6 @@ img {
   left: 0;
   border-radius: 3px 0 0 3px;
 }
-
 .prev:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
@@ -111,7 +106,6 @@ img {
   right: 0;
   border-radius: 3px 0 0 3px;
 }
-
 .next:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
@@ -144,7 +138,6 @@ img {
   display: inline-block;
   transition: background-color 0.6s ease;
 }
-
 .dot:hover {
   background-color: #111111;
 }
@@ -249,7 +242,6 @@ input[type=file] {
   display: flex;
   text-decoration: none;
 }
-
 .btn-play:hover {
   background-position: right center;
   color: #fff;
@@ -341,7 +333,6 @@ input[type=file] {
   border-radius: 10px;
   text-decoration: none;
 }
-
 .redButton:hover {
   color: white;
 }
@@ -350,11 +341,9 @@ input[type=file] {
   .prev {
     font-size: 11px;
   }
-
   .next {
     font-size: 11px;
   }
-
   .text {
     font-size: 11px;
   }

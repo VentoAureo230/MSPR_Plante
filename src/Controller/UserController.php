@@ -33,7 +33,7 @@ class UserController extends AbstractController
     public function edit(Request $request, EntityManagerInterface $entityManager): Response
     {
         if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login'); // Si le User n'est pas co il est redirigé au login
+            return $this->redirectToRoute('app_login');
         }
 
         $form = $this->createForm(UserType::class, $user = $this->getUser());

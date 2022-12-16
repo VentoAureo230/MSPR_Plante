@@ -16,9 +16,7 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        if($this->getUser() != ['ROLES_ADMIN']){
-            return $this->redirectToRoute('home');
-        }
+        // if($this->getUser()->getRoles() == ['ROLES_USER']){return $this->redirectToRoute('home');} else {return $this->redirectToRoute('admin');}
 
         $routeBuilder = $this->container->get(AdminUrlGenerator::class);
         $url = $routeBuilder->setController(PlantCrudController::class)->generateUrl();

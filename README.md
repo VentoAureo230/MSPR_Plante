@@ -70,3 +70,9 @@ Utilisez `symfony server:stop` pour arrêter le serveur
 Anthony Mény, Antoine Garnier, Gaetan Boucard.
 
 Etudiant en 2ème année à l'EPSI.
+
+## TODO
+
+- Ajouter une carte intéractive des plantes trouvées par l'utilisateur
+- Refonte complète et plus approfondis de l'UI / UX
+
