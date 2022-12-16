@@ -1,7 +1,14 @@
-{% extends 'base.html.twig' %}
+
 
 {% block title %}Hello AnswerController!{% endblock %}
-
+{% block stylesheets %}
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+{% block javascripts %}
+		{{ encore_entry_script_tags('map') }}
+    <script src="https://cdn.jsdelivr.net/npm/ol@v7.1.0/dist/ol.js"></script>
+{% endblock %}
 {% block body %}
 
 
@@ -12,7 +19,7 @@
 {% endfor %}#}
 
 
-<div class="informations">
+<div data-longitude="{{Achievement.longitude}}" data-latitude="{{Achievement.latitude}}" class="informations">
     <img <img class="PictureFound"  src="{{ ( asset( AchievementPicturePath ~ Achievement.file_name)) }}">
     {% for answer in Plant.answers %}
 
@@ -28,6 +35,7 @@
     {% endfor %}
 </div>
 
+<div id="map"  style="height:400px;"></div>
 
 <div class="flex-row">
     <a href="{{ path('game') }}" class="btn">Jouer</a>
@@ -36,3 +44,9 @@
 </div>
 
 {% endblock %}
+
+
+
+
+
+
